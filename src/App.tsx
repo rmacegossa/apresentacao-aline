@@ -113,8 +113,16 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Botões de navegação */}
-      <div className="fixed top-8 left-8 z-50 flex gap-4">
+      {/* Barra de ferramentas no canto superior direito */}
+      <div className="fixed top-8 right-8 z-50 flex items-center gap-4">
+        {/* Indicador de slide atual */}
+        <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+          <span className="text-white font-medium">
+            {currentSlide + 1} / {totalSlides}
+          </span>
+        </div>
+        
+        {/* Botões de navegação */}
         <motion.button
           onClick={prevSlide}
           disabled={currentSlide === 0}
@@ -124,6 +132,7 @@ function App() {
           )}
           whileHover={currentSlide !== 0 ? { scale: 1.1 } : {}}
           whileTap={{ scale: 0.95 }}
+          title="Slide anterior"
         >
           <ChevronLeft className="w-6 h-6" />
         </motion.button>
@@ -133,22 +142,14 @@ function App() {
           disabled={currentSlide === totalSlides - 1}
           className={cn(
             "p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white transition-all",
-            currentSlide === totalSlides - 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-white/20 hover:scale-110"
+            currentSlide !== totalSlides - 1 ? "hover:bg-white/20 hover:scale-110" : "opacity-50 cursor-not-allowed"
           )}
           whileHover={currentSlide !== totalSlides - 1 ? { scale: 1.1 } : {}}
           whileTap={{ scale: 0.95 }}
+          title="Próximo slide"
         >
           <ChevronRight className="w-6 h-6" />
         </motion.button>
-      </div>
-
-      {/* Indicador de slide atual */}
-      <div className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50">
-        <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-          <span className="text-white font-medium">
-            {currentSlide + 1} / {totalSlides}
-          </span>
-        </div>
       </div>
 
       {/* Navegação por pontos */}
