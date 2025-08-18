@@ -328,6 +328,72 @@ function App() {
         />
       )}
 
+      {/* Barra inferior mobile */}
+      {!showWelcome && !showIntro && (
+        <motion.div
+          initial={{ y: 100 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mobile-bottom-bar"
+        >
+          {/* Indicador de slide */}
+          <div className="slide-indicator">
+            <span className="current-slide">{currentSlide + 1}</span>
+            <span className="total-slides">/ {totalSlides}</span>
+          </div>
+
+          {/* Controles de navegação */}
+          <div className="navigation-controls">
+            <motion.button
+              onClick={() => setCurrentSlide(prev => Math.max(prev - 1, 0))}
+              disabled={currentSlide === 0}
+              className={`nav-btn ${currentSlide === 0 ? 'disabled' : ''}`}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </motion.button>
+            
+            <motion.button
+              onClick={() => setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1))}
+              disabled={currentSlide === totalSlides - 1}
+              className={`nav-btn ${currentSlide === totalSlides - 1 ? 'disabled' : ''}`}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronRight className="w-5 h-5" />
+            </motion.button>
+          </div>
+
+          {/* Controles de música */}
+          <div className="music-controls">
+            <button
+              onClick={toggleMusic}
+              disabled={!audioEnabled}
+              className={`music-btn ${!audioEnabled ? 'disabled' : ''}`}
+              title={audioEnabled ? (isMusicPlaying ? "Pausar música" : "Tocar música") : "Áudio desabilitado"}
+            >
+              {isMusicPlaying ? (
+                <span className="music-icon">⏸</span>
+              ) : (
+                <span className="music-icon">▶</span>
+              )}
+            </button>
+          </div>
+
+          {/* Botão fullscreen */}
+          <motion.button
+            onClick={toggleFullScreen}
+            className="fullscreen-btn"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            title="Modo tela cheia"
+          >
+            {isFullScreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
+          </motion.button>
+        </motion.div>
+      )}
+
       {/* Slides */}
       {!showWelcome && !showIntro && (
         <AnimatePresence mode="wait">
