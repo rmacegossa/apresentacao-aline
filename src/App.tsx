@@ -111,7 +111,7 @@ function App() {
   const [audioEnabled, setAudioEnabled] = useState(true)
   const [presentationStartTime, setPresentationStartTime] = useState<Date | null>(null)
   const [elapsedTime, setElapsedTime] = useState(0)
-  const totalSlides = 7
+  const totalSlides = 10
 
   // Timer da apresentação
   useEffect(() => {
@@ -1034,6 +1034,144 @@ function App() {
             </div>
           </Slide>
         )}
+
+        {/* Slide 7: A Jornada - O Início */}
+        <Slide key={7} slideIndex={7}>
+          <div className="slide-content">
+            <h2 className="slide-title">A Jornada dos Construtores da Confiança</h2>
+            <div className="story-section">
+              <motion.div
+                className="story-paragraph"
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5, duration: 1 }}
+              >
+                <p>
+                  Por trás de cada <span className="keyword-zoom">porta de vidro</span> que agora se abre para um novo paciente... 
+                  por trás de cada <span className="keyword-zoom">sorriso</span> que se reflete no espelho após um transplante capilar... 
+                  existe uma <span className="keyword-zoom">base</span>. Uma fundação que nós, juntos, tivemos a honra de construir.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                className="story-paragraph"
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2, duration: 1 }}
+              >
+                <p>
+                  Quando a <span className="keyword-zoom">Stanley's Hair</span> nos confiou a missão de expandir a sua visão, 
+                  o nosso desafio era claro. Não era apenas abrir novas clínicas, mas garantir que o 
+                  <span className="keyword-zoom">sonho</span> de um farol de excelência e um santuário para a confiança perdida 
+                  se sustentasse em uma base inabalável de <span className="keyword-zoom">legalidade</span> e conformidade.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </Slide>
+
+        {/* Slide 8: A Jornada - A Luta */}
+        <Slide key={8} slideIndex={8}>
+          <div className="slide-content">
+            <h2 className="slide-title">A Luta pela Excelência</h2>
+            <div className="story-section">
+              <motion.div
+                className="story-paragraph"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 1 }}
+              >
+                <p>
+                  Nós nos tornamos os <span className="keyword-zoom">arquitetos</span> deste sonho. A cada regulamentação analisada, 
+                  a cada documento corrigido, cada <span className="keyword-zoom">"sim"</span> conquistado... era uma batalha vencida. 
+                  Onde muitos viam um "protocolo" a ser seguido, nós víamos o mapa para a nossa excelência.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                className="story-paragraph"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2, duration: 1 }}
+              >
+                <p>
+                  Houve <span className="keyword-zoom">noites longas</span>. Momentos de incerteza. Aquele suspiro de frustração 
+                  com um prazo que parecia impossível de cumprir. Foi a nossa equipe <span className="keyword-zoom">Jurídica</span>, 
+                  com sua caneta afiada, traçando caminhos onde não havia.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                className="story-paragraph"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.9, duration: 1 }}
+              >
+                <p>
+                  Cada pessoa nesta equipe, de forma única, se tornou um <span className="keyword-zoom">herói</span> nessa epopeia. 
+                  E a maior lição que aprendemos é que a nossa força não estava em títulos ou em tabelas. 
+                  Estava na <span className="keyword-zoom">coragem</span> de continuar quando o caminho era escuro.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </Slide>
+
+        {/* Slide 9: A Jornada - O Agradecimento */}
+        <Slide key={9} slideIndex={9}>
+          <div className="slide-content">
+            <h2 className="slide-title">O Agradecimento</h2>
+            <div className="story-section">
+              <motion.div
+                className="story-paragraph"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5, duration: 1 }}
+              >
+                <p>
+                  E então... veio o <span className="keyword-zoom">momento</span>. Aquela notificação. Aquela assinatura final. 
+                  O brilho da placa que dizia: <span className="keyword-zoom">"Clínica Aprovada."</span> Não foi apenas a liberação 
+                  de um espaço. Foi a prova de que, juntos, somos capazes de transformar um plano em realidade.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                className="story-paragraph"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.2, duration: 1 }}
+              >
+                <p>
+                  <span className="keyword-zoom">Obrigado</span>. Obrigado por cada e-mail respondido na madrugada, 
+                  por cada planilha preenchida com perfeição, por cada visita fiscalizada que nos deixou mais fortes.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                className="story-paragraph"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.9, duration: 1 }}
+              >
+                <p>
+                  Vocês não legalizaram clínicas. Vocês ergueram um <span className="keyword-zoom">legado</span>. 
+                  Construíram a fundação de um sonho que agora pode ser vivido por milhares. 
+                  E por isso, por cada pedaço de orgulho que sinto ao ver nossas portas abertas, 
+                  o meu mais profundo e sincero agradecimento a cada um de vocês.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                className="final-message"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2.6, duration: 1.5 }}
+              >
+                <h3>Vocês são a razão do nosso sucesso. A razão da nossa história.</h3>
+              </motion.div>
+            </div>
+          </div>
+        </Slide>
         </AnimatePresence>
       )}
     </div>

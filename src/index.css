@@ -1120,61 +1120,205 @@ tr:hover td {
   background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
 }
 
+/* Slides de Storytelling - A Jornada */
+.story-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.story-paragraph {
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ffffff;
+  text-align: left;
+  position: relative;
+}
+
+.story-paragraph p {
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Palavras-chave com zoom */
+.keyword-zoom {
+  display: inline-block;
+  color: #3b82f6;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+.keyword-zoom:hover {
+  transform: scale(1.1);
+  color: #60a5fa;
+  text-shadow: 0 0 20px rgba(96, 165, 250, 0.8);
+}
+
+.keyword-zoom::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  transition: width 0.3s ease;
+}
+
+.keyword-zoom:hover::after {
+  width: 100%;
+}
+
+/* Mensagem final especial */
+.final-message {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+  border-radius: 20px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.final-message::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.final-message h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+/* Animações específicas para cada slide */
+.story-paragraph:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.story-paragraph:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.story-paragraph:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+/* Efeitos de entrada escalonados */
+.story-paragraph {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: storyParagraphEnter 0.8s ease-out forwards;
+}
+
+@keyframes storyParagraphEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Responsividade para mobile */
 @media (max-width: 768px) {
-	.welcome-background {
-		width: 100%;
-		height: 100%;
-		opacity: 0.3;
-	}
-	
-	.welcome-background img {
-		object-position: center;
-	}
-	
-	.welcome-content {
-		margin: 0;
-		padding: 1rem;
-		max-width: 100%;
-		z-index: 3;
-	}
-	
-	.welcome-logo {
-		margin-bottom: 1.5rem;
-	}
-	
-	.welcome-title {
-		font-size: 2.5rem;
-		margin-bottom: 0.75rem;
-	}
-	
-	.welcome-subtitle {
-		font-size: 1.25rem;
-		margin-bottom: 2rem;
-	}
-	
-	.audio-option {
-		margin-bottom: 1.5rem;
-	}
-	
-	.start-button {
-		padding: 0.875rem 2rem;
-		font-size: 1.1rem;
-	}
+  .welcome-background {
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+  }
+  
+  .welcome-background img {
+    object-position: center;
+  }
+  
+  .welcome-content {
+    margin: 0;
+    padding: 1rem;
+    max-width: 100%;
+    z-index: 3;
+  }
+  
+  .welcome-logo {
+    margin-bottom: 1.5rem;
+  }
+  
+  .welcome-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .welcome-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  
+  .audio-option {
+    margin-bottom: 1.5rem;
+  }
+  
+  .start-button {
+    padding: 0.875rem 2rem;
+    font-size: 1.1rem;
+  }
 
-	/* Ocultar elementos em mobile */
-	.fixed.top-8.right-8 {
-		display: none !important;
-	}
-	
-	.navigation-dots {
-		display: none !important;
-	}
+  /* Ocultar elementos em mobile */
+  .fixed.top-8.right-8 {
+    display: none !important;
+  }
+  
+  .navigation-dots {
+    display: none !important;
+  }
 
-	/* Ajustar espaçamento inferior para mobile */
-	.slide-container {
-		padding-bottom: 10rem; /* Mais espaço para o menu mobile */
-	}
+  /* Ajustar espaçamento inferior para mobile */
+  .slide-container {
+    padding-bottom: 10rem; /* Mais espaço para o menu mobile */
+  }
+
+  /* Estilos mobile para storytelling */
+  .story-section {
+    padding: 1rem 0;
+    max-width: 100%;
+  }
+  
+  .story-paragraph {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .final-message {
+    margin-top: 2rem;
+    padding: 1.5rem;
+  }
+  
+  .final-message h3 {
+    font-size: 1.2rem;
+  }
+  
+  .keyword-zoom:hover {
+    transform: scale(1.05);
+  }
 }
 
 /* Ajustar espaçamento inferior para desktop */
