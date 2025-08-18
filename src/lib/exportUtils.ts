@@ -102,7 +102,7 @@ export const exportToPowerPoint = async () => {
     const servicesStartX = 0.3
     const servicesStartY = 1.5
     
-    services.forEach((service, index) => {
+    services.forEach((service, _) => {
       const x = servicesStartX + (servicesCol * servicesCardWidth)
       const y = servicesStartY + (servicesRow * servicesCardHeight)
       
@@ -224,7 +224,7 @@ export const exportToPowerPoint = async () => {
     const difficultiesStartX = 0.3
     const difficultiesStartY = 1.5
     
-    difficulties.forEach((difficulty, index) => {
+    difficulties.forEach((difficulty, _) => {
       const x = difficultiesStartX + (difficultiesCol * difficultiesCardWidth)
       const y = difficultiesStartY + (difficultiesRow * difficultiesCardHeight)
       
@@ -365,7 +365,7 @@ export const exportToPowerPoint = async () => {
     const problemsStartX = 0.3
     const problemsStartY = 1.5
     
-    problems.forEach((problem, index) => {
+    problems.forEach((problem, _) => {
       const x = problemsStartX + (problemsCol * problemsCardWidth)
       const y = problemsStartY + (problemsRow * problemsCardHeight)
       
