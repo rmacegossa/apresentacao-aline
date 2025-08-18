@@ -1321,6 +1321,99 @@ tr:hover td {
   }
 }
 
+/* Botões de exportação */
+.export-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 600px;
+  margin: 3rem auto 0;
+}
+
+.export-btn {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+.export-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.export-btn:active {
+  transform: translateY(0);
+}
+
+.export-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.export-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Cores específicas para cada tipo de exportação */
+.export-btn.powerpoint {
+  border-left: 4px solid #0078d4;
+}
+
+.export-btn.powerpoint:hover {
+  background: linear-gradient(135deg, rgba(0, 120, 212, 0.1), rgba(0, 120, 212, 0.05));
+}
+
+.export-btn.pdf {
+  border-left: 4px solid #dc3545;
+}
+
+.export-btn.pdf:hover {
+  background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.05));
+}
+
+.export-btn.html {
+  border-left: 4px solid #28a745;
+}
+
+.export-btn.html:hover {
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+  .export-options {
+    gap: 1.5rem;
+    margin: 2rem auto 0;
+    padding: 0 1rem;
+  }
+  
+  .export-btn {
+    padding: 1.25rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .export-icon {
+    font-size: 1.75rem;
+  }
+  
+  .export-text {
+    font-size: 1rem;
+  }
+}
+
 /* Ajustar espaçamento inferior para desktop */
 @media (min-width: 769px) {
 	.slide-container {

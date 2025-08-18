@@ -5,8 +5,7 @@ import { cn } from './lib/utils';
 import { 
   exportToPowerPoint, 
   exportToPDF, 
-  exportToHTML, 
-  exportToText
+  exportToHTML
 } from './lib/exportUtils';
 import IntroAnimation from './components/IntroAnimation';
 import WelcomeScreen from './components/WelcomeScreen';
@@ -217,31 +216,6 @@ function App() {
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const volume = parseFloat(event.target.value)
     setMusicVolume(volume)
-  }
-
-  // Função para lidar com exportações
-  const handleExport = async (type: string) => {
-    try {
-      switch (type) {
-        case 'exportPPTX':
-          await exportToPowerPoint()
-          break
-        case 'exportPDF':
-          await exportToPDF()
-          break
-        case 'exportHTML':
-          exportToHTML()
-          break
-        case 'exportText':
-          exportToText()
-          break
-        default:
-          break
-      }
-    } catch (error) {
-      console.error('Erro na exportação:', error)
-      alert('Erro ao exportar. Tente novamente.')
-    }
   }
 
   // Função para iniciar a apresentação
@@ -475,7 +449,7 @@ function App() {
 
       {/* Slides */}
       {!showWelcome && !showIntro && (
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence initial={false}>
         {currentSlide === 0 && (
           <Slide key="slide-0" slideIndex={0}>
             <div className="slide-content">
@@ -947,96 +921,8 @@ function App() {
           </Slide>
         )}
 
-        {currentSlide === 6 && (
-          <Slide key="slide-6" slideIndex={6}>
-            <div className="slide-content">
-              <motion.h1 
-                className="slide-title text-white text-4xl md:text-6xl"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                Exportar Apresentação
-              </motion.h1>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="mt-12"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {[
-                    {
-                      title: "PowerPoint (.pptx)",
-                      icon: "📊",
-                      description: "Exportar como apresentação PowerPoint nativa",
-                      action: "exportPPTX",
-                      color: "from-blue-500/20 to-blue-600/20"
-                    },
-                    {
-                      title: "PDF",
-                      icon: "📄",
-                      description: "Gerar documento PDF para impressão",
-                      action: "exportPDF",
-                      color: "from-red-500/20 to-red-600/20"
-                    },
-                    {
-                      title: "Google Slides",
-                      icon: "☁️",
-                      description: "Enviar para Google Slides (requer login)",
-                      action: "exportGoogle",
-                      color: "from-green-500/20 to-green-600/20"
-                    },
-                    {
-                      title: "Imagem (PNG)",
-                      icon: "🖼️",
-                      description: "Exportar cada slide como imagem",
-                      action: "exportImages",
-                      color: "from-purple-500/20 to-purple-600/20"
-                    },
-                    {
-                      title: "HTML",
-                      icon: "🌐",
-                      description: "Gerar arquivo HTML standalone",
-                      action: "exportHTML",
-                      color: "from-orange-500/20 to-orange-600/20"
-                    },
-                    {
-                      title: "Texto (.txt)",
-                      icon: "📝",
-                      description: "Extrair apenas o texto da apresentação",
-                      action: "exportText",
-                      color: "from-gray-500/20 to-gray-600/20"
-                    }
-                  ].map((option, index) => (
-                    <motion.div
-                      key={index}
-                      className={`card p-6 bg-gradient-to-br ${option.color} cursor-pointer`}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                      whileHover={{ y: -8, scale: 1.03 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => handleExport(option.action)}
-                    >
-                      <div className="text-center">
-                        <div className="text-5xl mb-4">{option.icon}</div>
-                        <h3 className="text-xl font-semibold text-white mb-3">{option.title}</h3>
-                        <p className="text-gray-300 text-sm mb-4">{option.description}</p>
-                        <button className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors border border-white/30">
-                          Exportar
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </Slide>
-        )}
-
-        {/* Slide 7: A Jornada - O Início */}
-        <Slide key={7} slideIndex={7}>
+        {/* Slide 6: A Jornada - O Início */}
+        <Slide key={6} slideIndex={6}>
           <div className="slide-content">
             <h2 className="slide-title">A Jornada dos Construtores da Confiança</h2>
             <div className="story-section">
@@ -1066,6 +952,44 @@ function App() {
                   se sustentasse em uma base inabalável de <span className="keyword-zoom">legalidade</span> e conformidade.
                 </p>
               </motion.div>
+            </div>
+          </div>
+        </Slide>
+
+        {/* Slide 7: Exportação */}
+        <Slide key={7} slideIndex={7}>
+          <div className="slide-content">
+            <h2 className="slide-title">Exportar Apresentação</h2>
+            <div className="export-options">
+              <motion.button
+                onClick={exportToPowerPoint}
+                className="export-btn powerpoint"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="export-icon">📊</span>
+                <span className="export-text">PowerPoint (.pptx)</span>
+              </motion.button>
+              
+              <motion.button
+                onClick={exportToPDF}
+                className="export-btn pdf"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="export-icon">📄</span>
+                <span className="export-text">PDF</span>
+              </motion.button>
+              
+              <motion.button
+                onClick={exportToHTML}
+                className="export-btn html"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="export-icon">🌐</span>
+                <span className="export-text">HTML</span>
+              </motion.button>
             </div>
           </div>
         </Slide>
