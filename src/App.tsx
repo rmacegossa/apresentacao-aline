@@ -9,6 +9,7 @@ import {
   exportToText
 } from './lib/exportUtils';
 import IntroAnimation from './components/IntroAnimation';
+import WelcomeScreen from './components/WelcomeScreen';
 
 // Componente de navegação por pontos
 const NavigationDots = ({ currentSlide, totalSlides, onSlideChange }: {
@@ -65,9 +66,11 @@ const Slide = ({ children, isActive }: { children: React.ReactNode, isActive: bo
 function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isFullScreen, setIsFullScreen] = useState(false)
-  const [showIntro, setShowIntro] = useState(true)
+  const [showWelcome, setShowWelcome] = useState(true)
+  const [showIntro, setShowIntro] = useState(false)
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [musicVolume, setMusicVolume] = useState(0.3)
+  const [audioEnabled, setAudioEnabled] = useState(true)
   const totalSlides = 7
 
   // Navegação por teclado
@@ -132,6 +135,8 @@ function App() {
 
   // Funções de controle de música
   const toggleMusic = () => {
+    if (!audioEnabled) return // Não permite tocar se áudio estiver desabilitado
+    
     console.log('Toggle música chamado, estado atual:', isMusicPlaying)
     const newState = !isMusicPlaying
     setIsMusicPlaying(newState)
@@ -177,6 +182,34 @@ function App() {
     }
   }
 
+  // Função para iniciar a apresentação
+  const handleStartPresentation = async (withAudio: boolean) => {
+    setAudioEnabled(withAudio)
+    
+    // Entrar em modo tela cheia
+    try {
+      if (document.documentElement.requestFullscreen) {
+        await document.documentElement.requestFullscreen()
+        setIsFullScreen(true)
+      }
+    } catch (error) {
+      console.log('Erro ao entrar em tela cheia:', error)
+    }
+    
+    // Mostrar animação de intro
+    setShowWelcome(false)
+    setShowIntro(true)
+    
+    // Iniciar música se habilitado
+    if (withAudio) {
+      setIsMusicPlaying(true)
+      const audio = document.getElementById('background-music') as HTMLAudioElement
+      if (audio) {
+        audio.play().catch(err => console.error('Erro ao tocar música:', err))
+      }
+    }
+  }
+
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
       {/* Elemento de áudio */}
@@ -189,6 +222,11 @@ function App() {
         onPause={() => setIsMusicPlaying(false)}
         onEnded={() => setIsMusicPlaying(false)}
       />
+      
+      {/* Tela de boas-vindas */}
+      {showWelcome && (
+        <WelcomeScreen onStartPresentation={handleStartPresentation} />
+      )}
       
       {/* Animação de entrada */}
       {showIntro && (
@@ -232,25 +270,30 @@ function App() {
         {/* Botão Full-Screen */}
         <motion.button
           onClick={toggleFullScreen}
-          className="p-2 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors"
+          className="fullscreen-button"
           title={isFullScreen ? "Sair do modo tela cheia" : "Modo tela cheia"}
         >
           {isFullScreen ? (
-            <Minimize2 className="w-5 h-5" />
+            <Minimize2 />
           ) : (
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-            </svg>
+            <Maximize2 />
           )}
         </motion.button>
 
         {/* Controles de Música */}
-        <div className="flex items-center gap-3 bg-white/20 rounded-lg px-4 py-2">
+        <div className={`flex items-center gap-3 rounded-lg px-4 py-2 transition-all ${
+          audioEnabled ? 'bg-white/20' : 'bg-white/10 opacity-50'
+        }`}>
           {/* Botão Play/Pause */}
           <button
             onClick={toggleMusic}
-            className="p-2.5 rounded-lg bg-white/30 hover:bg-white/40 text-white transition-colors"
-            title={isMusicPlaying ? "Pausar música" : "Tocar música"}
+            disabled={!audioEnabled}
+            className={`p-2.5 rounded-lg transition-colors ${
+              audioEnabled 
+                ? 'bg-white/30 hover:bg-white/40 text-white' 
+                : 'bg-white/20 text-white/50 cursor-not-allowed'
+            }`}
+            title={audioEnabled ? (isMusicPlaying ? "Pausar música" : "Tocar música") : "Áudio desabilitado"}
           >
             {isMusicPlaying ? (
               <span className="music-button text-xl font-bold">⏸</span>
@@ -267,14 +310,17 @@ function App() {
             step="0.1"
             value={musicVolume}
             onChange={handleVolumeChange}
-            className="w-20 h-2.5 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
-            title="Volume da música"
+            disabled={!audioEnabled}
+            className={`w-20 h-2.5 rounded-lg appearance-none cursor-pointer slider ${
+              audioEnabled ? 'bg-white/20' : 'bg-white/10'
+            }`}
+            title={audioEnabled ? "Volume da música" : "Volume desabilitado"}
           />
         </div>
       </div>
 
       {/* Navegação por pontos */}
-      {!showIntro && (
+      {!showWelcome && !showIntro && (
         <NavigationDots
           currentSlide={currentSlide}
           totalSlides={totalSlides}
@@ -283,7 +329,7 @@ function App() {
       )}
 
       {/* Slides */}
-      {!showIntro && (
+      {!showWelcome && !showIntro && (
         <AnimatePresence mode="wait">
         {currentSlide === 0 && (
           <Slide key="slide-0" isActive={currentSlide === 0}>
@@ -741,7 +787,7 @@ function App() {
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <h3 className="text-xl font-semibold text-white">{clinica.clinica}</h3>
-                            <span className="px-2 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-white/20 to-gray-600/20 text-white border border-white/20">
+                            <span className="status-tag">
                               {clinica.status}
                             </span>
                           </div>

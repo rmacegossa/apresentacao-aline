@@ -817,3 +817,183 @@ tr:hover td {
 .animate-scale-in {
   animation: scaleIn 0.4s ease-out;
 }
+
+/* Botão de tela cheia personalizado */
+.fullscreen-button {
+  color: #fff !important;
+  padding: 8px !important;
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 8px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.fullscreen-button:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.fullscreen-button svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Tela de boas-vindas */
+.welcome-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 9999;
+	overflow: hidden;
+}
+
+.welcome-background {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 40%;
+	height: 100%;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.welcome-background img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.welcome-content {
+	text-align: center;
+	max-width: 600px;
+	padding: 2rem;
+	position: relative;
+	z-index: 2;
+	margin-right: auto;
+	margin-left: 10%;
+}
+
+.welcome-logo {
+  margin-bottom: 2rem;
+}
+
+.welcome-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-subtitle {
+  font-size: 1.5rem;
+  color: #cccccc;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.audio-option {
+  margin-bottom: 2rem;
+}
+
+.audio-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.audio-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-slider {
+  width: 60px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-slider:before {
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background: #ffffff;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s ease;
+}
+
+.audio-toggle input[type="checkbox"]:checked + .toggle-slider {
+  background: rgba(34, 197, 94, 0.8);
+}
+
+.audio-toggle input[type="checkbox"]:checked + .toggle-slider:before {
+  transform: translateX(30px);
+}
+
+.toggle-label {
+  font-size: 1.1rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.start-button {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
+}
+
+.start-button:active {
+  transform: translateY(0);
+}
+
+/* Tags de status para Overview de Problemas */
+.status-tag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 20px;
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.status-tag:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+}
