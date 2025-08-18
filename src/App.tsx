@@ -16,7 +16,7 @@ const NavigationDots = ({ currentSlide, totalSlides, onSlideChange }: {
   totalSlides: number
   onSlideChange: (slide: number) => void
 }) => {
-  const icons = [Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, Heart, Users, Award, FileDown]
+  const icons = [Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, Heart, Users, Award, FileDown, FileDown]
   
   return (
     <div className="navigation-dots">
@@ -110,7 +110,36 @@ function App() {
   const [audioEnabled, setAudioEnabled] = useState(true)
   const [presentationStartTime, setPresentationStartTime] = useState<Date | null>(null)
   const [elapsedTime, setElapsedTime] = useState(0)
-  const totalSlides = 10
+  const totalSlides = 11
+
+  // Dados para o slide Overview de Problemas
+  const problems = [
+    {
+      nome: "Cuiabá",
+      status: "Fase final de liberação Tipo I",
+      descricao: "A unidade passou por processo rigoroso de regularização junto à Vigilância Sanitária, motivado por denúncia que resultou em interdição temporária. Durante a fiscalização, foram exigidas diversas adequações, incluindo obras estruturais significativas. Todas as exigências foram devidamente atendidas, demonstrando o comprometimento da equipe com a conformidade e qualidade do serviço. Atualmente, a clínica encontra-se em fase final de liberação para operação como Tipo I, sendo que a classificação Tipo II ainda requer algumas intervenções adicionais."
+    },
+    {
+      nome: "Manaus",
+      status: "Projeto aprovado, obras em andamento",
+      descricao: "Em Manaus, a unidade enfrentou desafios estruturais que demandaram múltiplas obras e ajustes para atender às normas da Vigilância Sanitária. Após um período de trabalho intenso, o projeto foi recentemente aprovado, embora algumas intervenções ainda estejam em andamento. O processo evidencia o empenho da equipe em garantir a total adequação da unidade, seguindo todas as exigências legais e estruturais para operação segura e eficiente."
+    },
+    {
+      nome: "Porto Alegre",
+      status: "Validada pela Vigilância Sanitária",
+      descricao: "A clínica de Porto Alegre já foi validada pela Vigilância Sanitária, o que confirma a conformidade da unidade com os requisitos essenciais de operação. No momento, aguarda-se apenas a conclusão da análise do projeto para que possa obter a liberação final, permitindo a continuidade das atividades dentro dos padrões exigidos."
+    },
+    {
+      nome: "Florianópolis",
+      status: "Projeto aprovado, obra pendente",
+      descricao: "Em Florianópolis, a unidade passou por um longo processo de aprovação do projeto, que envolveu diversas idas e vindas e ajustes estruturais. Apesar de o projeto ter sido aprovado, ainda é necessária a realização de uma obra de adequação para que a clínica esteja totalmente pronta para liberação. Esse processo demonstra o cuidado da equipe em garantir que a unidade atenda integralmente às normas de segurança e qualidade."
+    },
+    {
+      nome: "Ribeirão Preto",
+      status: "Fase final, pendência RT",
+      descricao: "A unidade de Ribeirão Preto está em fase final de liberação. A clínica foi vistoriada e recebeu elogios da Vigilância Sanitária, com o projeto totalmente aprovado. No entanto, a liberação formal ainda depende da regularização de uma pendência do Responsável Técnico junto ao CRM. A expectativa é que, assim que essa questão seja solucionada, a clínica esteja plenamente operacional."
+    }
+  ]
 
   // Timer da apresentação
   useEffect(() => {
@@ -710,68 +739,6 @@ function App() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Maiores Dificuldades
-              </motion.h1>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="mt-12"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    {
-                      title: "Inadequação da infraestrutura física à RDC 50",
-                      icon: "🏗️"
-                    },
-                    {
-                      title: "Alto volume de denúncias e fiscalizações",
-                      icon: "📋"
-                    },
-                    {
-                      title: "Escassez de profissionais com RQE para atuar como RT",
-                      icon: "👨‍⚕️"
-                    },
-                    {
-                      title: "Vácuo legislativo para transplante capilar",
-                      icon: "⚖️"
-                    },
-                    {
-                      title: "Inconsistência técnica nas fiscalizações",
-                      icon: "🔍"
-                    },
-                    {
-                      title: "Pressões e interferências externas na operação",
-                      icon: "⚠️"
-                    }
-                  ].map((difficulty, index) => (
-                    <motion.div
-                      key={index}
-                      className="card p-6"
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                      whileHover={{ y: -5, scale: 1.02 }}
-                    >
-                      <div className="text-4xl mb-4 text-center">{difficulty.icon}</div>
-                      <h3 className="text-lg font-semibold text-white text-center leading-tight">{difficulty.title}</h3>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </Slide>
-        )}
-
-        {currentSlide === 4 && (
-          <Slide key="slide-4" slideIndex={4}>
-            <div className="slide-content">
-              <motion.h1 
-                className="slide-title text-white text-4xl md:text-6xl"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
                 Unidades em Processo de Liberação
               </motion.h1>
               <motion.div
@@ -843,86 +810,30 @@ function App() {
           </Slide>
         )}
 
-        {currentSlide === 5 && (
-          <Slide key="slide-5" slideIndex={5}>
-            <div className="slide-content">
-              <motion.h1 
-                className="slide-title text-white text-4xl md:text-6xl"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                Overview de Problemas
-              </motion.h1>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="mt-12"
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {[
-                    {
-                      clinica: "Cuiabá",
-                      icon: "🏗️",
-                      status: "Fase final de liberação Tipo I",
-                      description: "A unidade passou por processo rigoroso de regularização junto à Vigilância Sanitária, motivado por denúncia que resultou em interdição temporária. Durante a fiscalização, foram exigidas diversas adequações, incluindo obras estruturais significativas. Todas as exigências foram devidamente atendidas, demonstrando o comprometimento da equipe com a conformidade e qualidade do serviço. Atualmente, a clínica encontra-se em fase final de liberação para operação como Tipo I, sendo que a classificação Tipo II ainda requer algumas intervenções adicionais."
-                    },
-                    {
-                      clinica: "Manaus",
-                      icon: "🔧",
-                      status: "Projeto aprovado, obras em andamento",
-                      description: "Em Manaus, a unidade enfrentou desafios estruturais que demandaram múltiplas obras e ajustes para atender às normas da Vigilância Sanitária. Após um período de trabalho intenso, o projeto foi recentemente aprovado, embora algumas intervenções ainda estejam em andamento. O processo evidencia o empenho da equipe em garantir a total adequação da unidade, seguindo todas as exigências legais e estruturais para operação segura e eficiente."
-                    },
-                    {
-                      clinica: "Porto Alegre",
-                      icon: "✅",
-                      status: "Validada pela Vigilância Sanitária",
-                      description: "A clínica de Porto Alegre já foi validada pela Vigilância Sanitária, o que confirma a conformidade da unidade com os requisitos essenciais de operação. No momento, aguarda-se apenas a conclusão da análise do projeto para que possa obter a liberação final, permitindo a continuidade das atividades dentro dos padrões exigidos."
-                    },
-                    {
-                      clinica: "Florianópolis",
-                      icon: "📋",
-                      status: "Projeto aprovado, obra pendente",
-                      description: "Em Florianópolis, a unidade passou por um longo processo de aprovação do projeto, que envolveu diversas idas e vindas e ajustes estruturais. Apesar de o projeto ter sido aprovado, ainda é necessária a realização de uma obra de adequação para que a clínica esteja totalmente pronta para liberação. Esse processo demonstra o cuidado da equipe em garantir que a unidade atenda integralmente às normas de segurança e qualidade."
-                    },
-                    {
-                      clinica: "Ribeirão Preto",
-                      icon: "🎯",
-                      status: "Fase final, pendência RT",
-                      description: "A unidade de Ribeirão Preto está em fase final de liberação. A clínica foi vistoriada e recebeu elogios da Vigilância Sanitária, com o projeto totalmente aprovado. No entanto, a liberação formal ainda depende da regularização de uma pendência do Responsável Técnico junto ao CRM. A expectativa é que, assim que essa questão seja solucionada, a clínica esteja plenamente operacional."
-                    }
-                  ].map((clinica, index) => (
-                    <motion.div
-                      key={index}
-                      className="card p-6"
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                      whileHover={{ y: -5, scale: 1.02 }}
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="text-3xl flex-shrink-0">{clinica.icon}</div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-3">
-                            <h3 className="text-xl font-semibold text-white">{clinica.clinica}</h3>
-                            <span className="status-tag">
-                              {clinica.status}
-                            </span>
-                          </div>
-                          <p className="text-gray-300 text-sm leading-relaxed">{clinica.description}</p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </Slide>
-        )}
-
-        {/* Slide 6: A Jornada - O Início */}
+        {/* Slide 6: Overview de Problemas */}
         <Slide key={6} slideIndex={6}>
+          <div className="slide-content">
+            <h2 className="slide-title">Overview de Problemas</h2>
+            <div className="problems-grid">
+              {problems.map((clinica, index) => (
+                <motion.div
+                  key={clinica.nome}
+                  className="problem-card"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.2 }}
+                >
+                  <h3 className="clinica-nome">{clinica.nome}</h3>
+                  <span className="status-tag">{clinica.status}</span>
+                  <p className="clinica-descricao">{clinica.descricao}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </Slide>
+
+        {/* Slide 7: A Jornada - O Início */}
+        <Slide key={7} slideIndex={7}>
           <div className="slide-content">
             <h2 className="slide-title">A Jornada dos Construtores da Confiança</h2>
             <div className="story-section">
@@ -956,8 +867,8 @@ function App() {
           </div>
         </Slide>
 
-        {/* Slide 7: A Jornada - A Luta */}
-        <Slide key={7} slideIndex={7}>
+        {/* Slide 8: A Jornada - A Luta */}
+        <Slide key={8} slideIndex={8}>
           <div className="slide-content">
             <h2 className="slide-title">A Luta pela Excelência</h2>
             <div className="story-section">
@@ -1003,8 +914,8 @@ function App() {
           </div>
         </Slide>
 
-        {/* Slide 8: A Jornada - O Agradecimento */}
-        <Slide key={8} slideIndex={8}>
+        {/* Slide 9: A Jornada - O Agradecimento */}
+        <Slide key={9} slideIndex={9}>
           <div className="slide-content">
             <h2 className="slide-title">O Agradecimento</h2>
             <div className="story-section">
@@ -1059,8 +970,8 @@ function App() {
           </div>
         </Slide>
 
-        {/* Slide 9: Exportação (ÚLTIMO SLIDE) */}
-        <Slide key={9} slideIndex={9}>
+        {/* Slide 10: Exportação (ÚLTIMO SLIDE) */}
+        <Slide key={10} slideIndex={10}>
           <div className="slide-content">
             <h2 className="slide-title">Exportar Apresentação</h2>
             <div className="export-options">
