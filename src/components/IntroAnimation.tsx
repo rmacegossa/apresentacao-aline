@@ -14,11 +14,11 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
     const timer1 = setTimeout(() => {
       setShowLogo(false);
       setShowParticles(true);
-    }, 2500); // Logo fica visível por 2.5 segundos
+    }, 3000); // Logo fica visível por 3 segundos
 
     const timer2 = setTimeout(() => {
       onComplete(); // Finaliza a animação
-    }, 4000); // Total de 4 segundos
+    }, 6000); // Total de 6 segundos
 
     return () => {
       clearTimeout(timer1);
@@ -26,13 +26,14 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
     };
   }, [onComplete]);
 
-  // Componente de partículas com efeito de explosão
-  const Particle = ({ delay, x, y, size, color }: { 
+  // Componente de partículas com efeito de explosão dramático
+  const Particle = ({ delay, x, y, size, color, rotation }: { 
     delay: number; 
     x: number; 
     y: number; 
     size: number;
     color: string;
+    rotation: number;
   }) => (
     <motion.div
       className="absolute rounded-full shadow-lg"
@@ -54,14 +55,15 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
       animate={{ 
         x: x, 
         y: y, 
-        opacity: 0, 
-        scale: 0,
-        rotate: 360
+        opacity: [1, 1, 0], 
+        scale: [1, 1.2, 0],
+        rotate: rotation
       }}
       transition={{ 
-        duration: 1.5, 
+        duration: 3, 
         delay: delay,
-        ease: "easeOut"
+        ease: "easeOut",
+        times: [0, 0.7, 1]
       }}
     />
   );
@@ -77,7 +79,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.2 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 1, ease: "easeOut" }}
           >
             <motion.div
               animate={{ 
@@ -98,7 +100,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
           </motion.div>
         )}
 
-        {/* Explosão de Partículas */}
+        {/* Explosão de Partículas Dramática */}
         {showParticles && (
           <motion.div
             key="particles"
@@ -106,18 +108,19 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.5 }}
           >
-            {/* Partículas principais - explosão em todas as direções */}
-            {Array.from({ length: 60 }).map((_, i) => {
-              const angle = (i / 60) * 2 * Math.PI;
-              const distance = 200 + Math.random() * 300;
+            {/* Partículas principais - explosão em todas as direções (mais distantes) */}
+            {Array.from({ length: 80 }).map((_, i) => {
+              const angle = (i / 80) * 2 * Math.PI;
+              const distance = 400 + Math.random() * 600; // Aumentado para cobrir mais área
               const x = Math.cos(angle) * distance;
               const y = Math.sin(angle) * distance;
-              const delay = Math.random() * 0.2;
-              const size = 3 + Math.random() * 4; // 3-7px
-              const colors = ['#ffffff', '#f0f0f0', '#e0e0e0', '#d0d0d0'];
+              const delay = Math.random() * 0.5; // Delay mais variado
+              const size = 4 + Math.random() * 6; // 4-10px (partículas maiores)
+              const colors = ['#ffffff', '#f0f0f0', '#e0e0e0', '#d0d0d0', '#c0c0c0'];
               const color = colors[Math.floor(Math.random() * colors.length)];
+              const rotation = Math.random() * 720 - 360; // Rotação mais dramática
               
               return (
                 <Particle 
@@ -127,20 +130,22 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
                   y={y} 
                   size={size}
                   color={color}
+                  rotation={rotation}
                 />
               );
             })}
             
-            {/* Partículas secundárias - explosão em espiral */}
-            {Array.from({ length: 40 }).map((_, i) => {
-              const angle = (i / 40) * 2 * Math.PI;
-              const distance = 100 + Math.random() * 200;
+            {/* Partículas secundárias - explosão em espiral (mais próximas) */}
+            {Array.from({ length: 60 }).map((_, i) => {
+              const angle = (i / 60) * 2 * Math.PI;
+              const distance = 200 + Math.random() * 400;
               const x = Math.cos(angle) * distance;
               const y = Math.sin(angle) * distance;
-              const delay = 0.1 + Math.random() * 0.3;
-              const size = 2 + Math.random() * 3; // 2-5px
-              const colors = ['#ffffff', '#f8f8f8', '#f0f0f0'];
+              const delay = 0.2 + Math.random() * 0.6;
+              const size = 3 + Math.random() * 5; // 3-8px
+              const colors = ['#ffffff', '#f8f8f8', '#f0f0f0', '#e8e8e8'];
               const color = colors[Math.floor(Math.random() * colors.length)];
+              const rotation = Math.random() * 540 - 270;
               
               return (
                 <Particle 
@@ -150,29 +155,79 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
                   y={y} 
                   size={size}
                   color={color}
+                  rotation={rotation}
                 />
               );
             })}
             
-            {/* Efeito de brilho central */}
+            {/* Partículas de destaque - explosão mais lenta */}
+            {Array.from({ length: 30 }).map((_, i) => {
+              const angle = (i / 30) * 2 * Math.PI;
+              const distance = 300 + Math.random() * 500;
+              const x = Math.cos(angle) * distance;
+              const y = Math.sin(angle) * distance;
+              const delay = 0.5 + Math.random() * 1; // Delay maior para efeito escalonado
+              const size = 6 + Math.random() * 8; // 6-14px (partículas grandes)
+              const colors = ['#ffffff', '#f5f5f5'];
+              const color = colors[Math.floor(Math.random() * colors.length)];
+              const rotation = Math.random() * 1080 - 540;
+              
+              return (
+                <Particle 
+                  key={`highlight-${i}`} 
+                  delay={delay} 
+                  x={x} 
+                  y={y} 
+                  size={size}
+                  color={color}
+                  rotation={rotation}
+                />
+              );
+            })}
+            
+            {/* Efeito de brilho central expandido */}
             <motion.div
-              className="absolute w-20 h-20 bg-white rounded-full opacity-80"
+              className="absolute w-32 h-32 bg-white rounded-full opacity-90"
               initial={{ 
                 scale: 0, 
                 opacity: 0 
               }}
               animate={{ 
-                scale: [0, 2, 0], 
-                opacity: [0, 0.8, 0] 
+                scale: [0, 3, 0], 
+                opacity: [0, 0.9, 0] 
               }}
               transition={{ 
-                duration: 1.5,
+                duration: 2.5,
                 ease: "easeOut"
               }}
             />
+            
+            {/* Ondas de choque concêntricas */}
+            {Array.from({ length: 5 }).map((_, i) => (
+              <motion.div
+                key={`wave-${i}`}
+                className="absolute border-2 border-white rounded-full opacity-0"
+                style={{
+                  width: `${(i + 1) * 100}px`,
+                  height: `${(i + 1) * 100}px`
+                }}
+                initial={{ 
+                  scale: 0, 
+                  opacity: 0 
+                }}
+                animate={{ 
+                  scale: 1, 
+                  opacity: [0, 0.3, 0] 
+                }}
+                transition={{ 
+                  duration: 2,
+                  delay: i * 0.2,
+                  ease: "easeOut"
+                }}
+              />
+            ))}
           </motion.div>
         )}
-
 
       </AnimatePresence>
     </div>

@@ -50,18 +50,56 @@ const NavigationDots = ({ currentSlide, totalSlides, onSlideChange }: {
   )
 }
 
-// Componente de slide
-const Slide = ({ children, isActive }: { children: React.ReactNode, isActive: boolean }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 50 }}
-    exit={{ opacity: 0, y: -50 }}
-    transition={{ duration: 0.5, ease: "easeInOut" }}
-    className="slide-container"
-  >
-    {children}
-  </motion.div>
-)
+// Componente de slide com transições elegantes
+const Slide = ({ children, isActive, slideIndex }: { children: React.ReactNode, isActive: boolean, slideIndex: number }) => {
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.8,
+      rotateY: direction > 0 ? 45 : -45
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      rotateY: 0
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.8,
+      rotateY: direction < 0 ? 45 : -45
+    })
+  }
+
+  const slideTransition = {
+    type: "spring",
+    stiffness: 300,
+    damping: 30,
+    duration: 0.8
+  }
+
+  return (
+    <motion.div
+      custom={slideIndex}
+      variants={slideVariants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      transition={slideTransition}
+      className="slide-container"
+      style={{
+        perspective: "1000px",
+        transformStyle: "preserve-3d"
+      }}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -71,7 +109,24 @@ function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false)
   const [musicVolume, setMusicVolume] = useState(0.3)
   const [audioEnabled, setAudioEnabled] = useState(true)
+  const [presentationStartTime, setPresentationStartTime] = useState<Date | null>(null)
+  const [elapsedTime, setElapsedTime] = useState(0)
   const totalSlides = 7
+
+  // Timer da apresentação
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null
+    
+    if (presentationStartTime && !showWelcome && !showIntro) {
+      interval = setInterval(() => {
+        setElapsedTime(Math.floor((Date.now() - presentationStartTime.getTime()) / 1000))
+      }, 1000)
+    }
+
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [presentationStartTime, showWelcome, showIntro])
 
   // Navegação por teclado
   useEffect(() => {
@@ -100,6 +155,16 @@ function App() {
       audio.volume = musicVolume
     }
   }, [musicVolume])
+
+  // Função para formatar o tempo
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+  }
+
+  // Calcular progresso da apresentação
+  const presentationProgress = ((currentSlide + 1) / totalSlides) * 100
 
   // Inicializar áudio quando o componente montar
   useEffect(() => {
@@ -185,6 +250,7 @@ function App() {
   // Função para iniciar a apresentação
   const handleStartPresentation = async (withAudio: boolean) => {
     setAudioEnabled(withAudio)
+    setPresentationStartTime(new Date()) // Inicia o timer
     
     // Entrar em modo tela cheia
     try {
@@ -233,91 +299,107 @@ function App() {
         <IntroAnimation onComplete={handleIntroComplete} />
       )}
       
-      {/* Barra de ferramentas no canto superior direito */}
-      <div className="fixed top-8 right-8 z-50 flex items-center gap-4 bg-white/5 backdrop-blur-sm rounded-xl px-4 py-3">
-        {/* Indicador de slide atual */}
-        <div className="px-4 py-2 rounded-lg bg-white/20">
-          <span className="text-white text-sm font-semibold">
-            {currentSlide + 1} / {totalSlides}
-          </span>
-        </div>
-        
-        {/* Botões de navegação */}
-        <motion.button
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          className={cn(
-            "p-2 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors",
-            currentSlide === 0 ? "opacity-50 cursor-not-allowed" : ""
-          )}
-          title="Slide anterior"
+      {/* Menu inferior desktop */}
+      {!showWelcome && !showIntro && (
+        <motion.div
+          initial={{ y: 100 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="desktop-bottom-menu"
         >
-          <ChevronLeft className="w-5 h-5" />
-        </motion.button>
-        
-        <motion.button
-          onClick={nextSlide}
-          disabled={currentSlide === totalSlides - 1}
-          className={cn(
-            "p-2 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors",
-            currentSlide !== totalSlides - 1 ? "" : "opacity-50 cursor-not-allowed"
-          )}
-          title="Próximo slide"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </motion.button>
-        
-        {/* Botão Full-Screen */}
-        <motion.button
-          onClick={toggleFullScreen}
-          className="fullscreen-button"
-          title={isFullScreen ? "Sair do modo tela cheia" : "Modo tela cheia"}
-        >
-          {isFullScreen ? (
-            <Minimize2 />
-          ) : (
-            <Maximize2 />
-          )}
-        </motion.button>
+          {/* Indicador de slide e progresso */}
+          <div className="slide-progress-section">
+            <div className="slide-indicator">
+              <span className="current-slide">{currentSlide + 1}</span>
+              <span className="total-slides">/ {totalSlides}</span>
+            </div>
+            
+            {/* Barra de progresso */}
+            <div className="progress-bar-container">
+              <div className="progress-bar">
+                <motion.div 
+                  className="progress-fill"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${presentationProgress}%` }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                />
+              </div>
+              <span className="progress-text">{Math.round(presentationProgress)}%</span>
+            </div>
+          </div>
 
-        {/* Controles de Música */}
-        <div className={`flex items-center gap-3 rounded-lg px-4 py-2 transition-all ${
-          audioEnabled ? 'bg-white/20' : 'bg-white/10 opacity-50'
-        }`}>
-          {/* Botão Play/Pause */}
-          <button
-            onClick={toggleMusic}
-            disabled={!audioEnabled}
-            className={`p-2.5 rounded-lg transition-colors ${
-              audioEnabled 
-                ? 'bg-white/30 hover:bg-white/40 text-white' 
-                : 'bg-white/20 text-white/50 cursor-not-allowed'
-            }`}
-            title={audioEnabled ? (isMusicPlaying ? "Pausar música" : "Tocar música") : "Áudio desabilitado"}
+          {/* Controles de navegação */}
+          <div className="navigation-controls">
+            <motion.button
+              onClick={() => setCurrentSlide(prev => Math.max(prev - 1, 0))}
+              disabled={currentSlide === 0}
+              className={`nav-btn ${currentSlide === 0 ? 'disabled' : ''}`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              title="Slide anterior"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </motion.button>
+            
+            <motion.button
+              onClick={() => setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1))}
+              disabled={currentSlide === totalSlides - 1}
+              className={`nav-btn ${currentSlide === totalSlides - 1 ? 'disabled' : ''}`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              title="Próximo slide"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </motion.button>
+          </div>
+
+          {/* Controles de música */}
+          <div className="music-controls">
+            <button
+              onClick={toggleMusic}
+              disabled={!audioEnabled}
+              className={`music-btn ${!audioEnabled ? 'disabled' : ''}`}
+              title={audioEnabled ? (isMusicPlaying ? "Pausar música" : "Tocar música") : "Áudio desabilitado"}
+            >
+              {isMusicPlaying ? (
+                <span className="music-icon">⏸</span>
+              ) : (
+                <span className="music-icon">▶</span>
+              )}
+            </button>
+            
+            {/* Controle de Volume */}
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
+              value={musicVolume}
+              onChange={handleVolumeChange}
+              disabled={!audioEnabled}
+              className={`volume-slider ${!audioEnabled ? 'disabled' : ''}`}
+              title={audioEnabled ? "Volume da música" : "Volume desabilitado"}
+            />
+          </div>
+
+          {/* Cronômetro */}
+          <div className="timer-section">
+            <div className="timer-icon">⏱️</div>
+            <span className="timer-text">{formatTime(elapsedTime)}</span>
+          </div>
+
+          {/* Botão fullscreen */}
+          <motion.button
+            onClick={toggleFullScreen}
+            className="fullscreen-btn"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            title="Modo tela cheia"
           >
-            {isMusicPlaying ? (
-              <span className="music-button text-xl font-bold">⏸</span>
-            ) : (
-              <span className="music-button text-xl font-bold">▶</span>
-            )}
-          </button>
-
-          {/* Controle de Volume */}
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.1"
-            value={musicVolume}
-            onChange={handleVolumeChange}
-            disabled={!audioEnabled}
-            className={`w-20 h-2.5 rounded-lg appearance-none cursor-pointer slider ${
-              audioEnabled ? 'bg-white/20' : 'bg-white/10'
-            }`}
-            title={audioEnabled ? "Volume da música" : "Volume desabilitado"}
-          />
-        </div>
-      </div>
+            {isFullScreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
+          </motion.button>
+        </motion.div>
+      )}
 
       {/* Navegação por pontos */}
       {!showWelcome && !showIntro && (
@@ -396,9 +478,9 @@ function App() {
 
       {/* Slides */}
       {!showWelcome && !showIntro && (
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
         {currentSlide === 0 && (
-          <Slide key="slide-0" isActive={currentSlide === 0}>
+          <Slide key="slide-0" isActive={currentSlide === 0} slideIndex={0}>
             <div className="slide-content">
               <div className="flex items-center justify-between gap-16">
                 <div className="flex-1 text-left">
@@ -438,7 +520,7 @@ function App() {
         )}
 
         {currentSlide === 1 && (
-          <Slide key="slide-1" isActive={currentSlide === 1}>
+          <Slide key="slide-1" isActive={currentSlide === 1} slideIndex={1}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -563,7 +645,7 @@ function App() {
         )}
 
         {currentSlide === 2 && (
-          <Slide key="slide-2" isActive={currentSlide === 2}>
+          <Slide key="slide-2" isActive={currentSlide === 2} slideIndex={2}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -649,7 +731,7 @@ function App() {
         )}
 
         {currentSlide === 3 && (
-          <Slide key="slide-3" isActive={currentSlide === 3}>
+          <Slide key="slide-3" isActive={currentSlide === 3} slideIndex={3}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -711,7 +793,7 @@ function App() {
         )}
 
         {currentSlide === 4 && (
-          <Slide key="slide-4" isActive={currentSlide === 4}>
+          <Slide key="slide-4" isActive={currentSlide === 4} slideIndex={4}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -791,7 +873,7 @@ function App() {
         )}
 
         {currentSlide === 5 && (
-          <Slide key="slide-5" isActive={currentSlide === 5}>
+          <Slide key="slide-5" isActive={currentSlide === 5} slideIndex={5}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -869,7 +951,7 @@ function App() {
         )}
 
         {currentSlide === 6 && (
-          <Slide key="slide-6" isActive={currentSlide === 6}>
+          <Slide key="slide-6" isActive={currentSlide === 6} slideIndex={6}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
