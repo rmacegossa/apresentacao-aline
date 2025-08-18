@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, FileDown, Maximize2, Minimize2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, FileDown, Maximize2, Minimize2, Play, Pause } from 'lucide-react';
 import { cn } from './lib/utils';
 import { 
   exportToPowerPoint, 
@@ -66,6 +66,8 @@ function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isFullScreen, setIsFullScreen] = useState(false)
   const [showIntro, setShowIntro] = useState(true)
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false)
+  const [musicVolume, setMusicVolume] = useState(0.3)
   const totalSlides = 7
 
   // Navegação por teclado
@@ -88,6 +90,23 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [totalSlides])
 
+  // Controle de áudio
+  useEffect(() => {
+    const audio = document.getElementById('background-music') as HTMLAudioElement
+    if (audio) {
+      audio.volume = musicVolume
+    }
+  }, [musicVolume])
+
+  // Inicializar áudio quando o componente montar
+  useEffect(() => {
+    const audio = document.getElementById('background-music') as HTMLAudioElement
+    if (audio) {
+      audio.volume = musicVolume
+      console.log('Áudio inicializado com volume:', musicVolume)
+    }
+  }, [])
+
   const nextSlide = () => setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1))
   const prevSlide = () => setCurrentSlide(prev => Math.max(prev - 1, 0))
   
@@ -109,6 +128,28 @@ function App() {
     } catch (error) {
       console.error('Erro ao alternar full-screen:', error)
     }
+  }
+
+  // Funções de controle de música
+  const toggleMusic = () => {
+    console.log('Toggle música chamado, estado atual:', isMusicPlaying)
+    const newState = !isMusicPlaying
+    setIsMusicPlaying(newState)
+    
+    // Controle direto do áudio para garantir
+    const audio = document.getElementById('background-music') as HTMLAudioElement
+    if (audio) {
+      if (newState) {
+        audio.play().catch(err => console.error('Erro ao tocar música:', err))
+      } else {
+        audio.pause()
+      }
+    }
+  }
+
+  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const volume = parseFloat(event.target.value)
+    setMusicVolume(volume)
   }
 
   // Função para lidar com exportações
@@ -138,16 +179,27 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* Elemento de áudio */}
+      <audio
+        id="background-music"
+        src="/survivor.mp3"
+        loop
+        preload="auto"
+        onPlay={() => setIsMusicPlaying(true)}
+        onPause={() => setIsMusicPlaying(false)}
+        onEnded={() => setIsMusicPlaying(false)}
+      />
+      
       {/* Animação de entrada */}
       {showIntro && (
         <IntroAnimation onComplete={handleIntroComplete} />
       )}
       
       {/* Barra de ferramentas no canto superior direito */}
-      <div className="fixed top-8 right-8 z-50 flex items-center gap-4">
+      <div className="fixed top-8 right-8 z-50 flex items-center gap-4 bg-white/5 backdrop-blur-sm rounded-xl px-4 py-3">
         {/* Indicador de slide atual */}
-        <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-          <span className="text-white font-medium">
+        <div className="px-4 py-2 rounded-lg bg-white/20">
+          <span className="text-white text-sm font-semibold">
             {currentSlide + 1} / {totalSlides}
           </span>
         </div>
@@ -157,44 +209,68 @@ function App() {
           onClick={prevSlide}
           disabled={currentSlide === 0}
           className={cn(
-            "p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white transition-all",
-            currentSlide === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-white/20 hover:scale-110"
+            "p-2 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors",
+            currentSlide === 0 ? "opacity-50 cursor-not-allowed" : ""
           )}
-          whileHover={currentSlide !== 0 ? { scale: 1.1 } : {}}
-          whileTap={{ scale: 0.95 }}
           title="Slide anterior"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-5 h-5" />
         </motion.button>
         
         <motion.button
           onClick={nextSlide}
           disabled={currentSlide === totalSlides - 1}
           className={cn(
-            "p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white transition-all",
-            currentSlide !== totalSlides - 1 ? "hover:bg-white/20 hover:scale-110" : "opacity-50 cursor-not-allowed"
+            "p-2 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors",
+            currentSlide !== totalSlides - 1 ? "" : "opacity-50 cursor-not-allowed"
           )}
-          whileHover={currentSlide !== totalSlides - 1 ? { scale: 1.1 } : {}}
-          whileTap={{ scale: 0.95 }}
           title="Próximo slide"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-5 h-5" />
         </motion.button>
         
         {/* Botão Full-Screen */}
         <motion.button
           onClick={toggleFullScreen}
-          className="p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white transition-all hover:bg-white/20 hover:scale-110"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+          className="p-2 rounded-lg bg-white/20 hover:bg-white/30 text-white transition-colors"
           title={isFullScreen ? "Sair do modo tela cheia" : "Modo tela cheia"}
         >
           {isFullScreen ? (
-            <Minimize2 className="w-6 h-6" />
+            <Minimize2 className="w-5 h-5" />
           ) : (
-            <Maximize2 className="w-6 h-6" />
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+            </svg>
           )}
         </motion.button>
+
+        {/* Controles de Música */}
+        <div className="flex items-center gap-3 bg-white/20 rounded-lg px-4 py-2">
+          {/* Botão Play/Pause */}
+          <button
+            onClick={toggleMusic}
+            className="p-2.5 rounded-lg bg-white/30 hover:bg-white/40 text-white transition-colors"
+            title={isMusicPlaying ? "Pausar música" : "Tocar música"}
+          >
+            {isMusicPlaying ? (
+              <span className="music-button text-xl font-bold">⏸</span>
+            ) : (
+              <span className="music-button text-xl font-bold">▶</span>
+            )}
+          </button>
+
+          {/* Controle de Volume */}
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value={musicVolume}
+            onChange={handleVolumeChange}
+            className="w-20 h-2.5 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
+            title="Volume da música"
+          />
+        </div>
       </div>
 
       {/* Navegação por pontos */}
@@ -266,78 +342,107 @@ function App() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="mt-12"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Coluna Esquerda */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Coluna 1 */}
                   <motion.div
                     className="space-y-4"
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.6 }}
                   >
-                    <h3 className="text-xl font-semibold text-white mb-6 text-center">Serviços Administrativos</h3>
-                    <ul className="space-y-3">
-                      {[
-                        { name: "Abertura", icon: "🚪" },
-                        { name: "Alteração", icon: "✏️" },
-                        { name: "Encerramento", icon: "🔒" },
-                        { name: "Solicitação de Inscrição Municipal", icon: "🏛️" },
-                        { name: "Alvará de Funcionamento", icon: "📋" },
-                        { name: "Protocolo e Acompanhamento de Análise de LTA", icon: "🏗️" },
-                        { name: "Cadastro, Acompanhamento e Renovação de COREN, CRM, CRF", icon: "👨‍⚕️" },
-                        { name: "Solicitação e Acompanhamento de Inscrição Secundária CRM", icon: "📝" },
-                        { name: "Alvará do Corpo de Bombeiros", icon: "🚒" },
-                        { name: "Elaboração de Documentação para Alvará Sanitário", icon: "📄" },
-                        { name: "Solicitação e Controle de Certificados Digitais", icon: "🔐" }
-                      ].map((service, index) => (
-                        <motion.li
-                          key={index}
-                          className="flex items-center space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                          whileHover={{ x: 5 }}
-                        >
-                          <span className="text-2xl flex-shrink-0">{service.icon}</span>
-                          <span className="text-white text-sm leading-relaxed">{service.name}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
+                    <div className="card p-6">
+                      <ul className="space-y-3">
+                        {[
+                          { name: "Abertura", icon: "🚪" },
+                          { name: "Alteração", icon: "✏️" },
+                          { name: "Encerramento", icon: "🔒" },
+                          { name: "Solicitação de Inscrição Municipal", icon: "🏛️" },
+                          { name: "Alvará de Funcionamento", icon: "📋" },
+                          { name: "Protocolo e Acompanhamento de Análise de LTA", icon: "🏗️" },
+                          { name: "Cadastro, Acompanhamento e Renovação de COREN, CRM, CRF", icon: "👨‍⚕️" }
+                        ].map((service, index) => (
+                          <motion.li
+                            key={index}
+                            className="flex items-start p-3 rounded-lg hover:bg-white/5 transition-colors"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                            whileHover={{ x: 5 }}
+                          >
+                            <span className="text-2xl flex-shrink-0 mt-1 mr-8">{service.icon}</span>
+                            <span className="text-white text-sm leading-relaxed text-left flex-1">{service.name}</span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
                   </motion.div>
 
-                  {/* Coluna Direita */}
+                  {/* Coluna 2 */}
+                  <motion.div
+                    className="space-y-4"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.7 }}
+                  >
+                    <div className="card p-6">
+                      <ul className="space-y-3">
+                        {[
+                          { name: "Solicitação e Acompanhamento de Inscrição Secundária CRM", icon: "📝" },
+                          { name: "Alvará do Corpo de Bombeiros", icon: "🚒" },
+                          { name: "Elaboração de Documentação para Alvará Sanitário", icon: "📄" },
+                          { name: "Solicitação e Controle de Certificados Digitais", icon: "🔐" },
+                          { name: "Verificação de Débitos em Cartório", icon: "⚖️" },
+                          { name: "Vivência em Órgãos Públicos", icon: "🏢" },
+                          { name: "Acompanhamento e Instrução para Atendimento a Fiscais", icon: "👮‍♂️" }
+                        ].map((service, index) => (
+                          <motion.li
+                            key={index}
+                            className="flex items-start p-3 rounded-lg hover:bg-white/5 transition-colors"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
+                            whileHover={{ y: -5 }}
+                          >
+                            <span className="text-2xl flex-shrink-0 mt-1 mr-8">{service.icon}</span>
+                            <span className="text-white text-sm leading-relaxed text-left flex-1">{service.name}</span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+
+                  {/* Coluna 3 */}
                   <motion.div
                     className="space-y-4"
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
                   >
-                    <h3 className="text-xl font-semibold text-white mb-6 text-center">Serviços Especializados</h3>
-                    <ul className="space-y-3">
-                      {[
-                        { name: "Verificação de Débitos em Cartório", icon: "⚖️" },
-                        { name: "Vivência em Órgãos Públicos", icon: "🏢" },
-                        { name: "Acompanhamento e Instrução para Atendimento a Fiscais", icon: "👮‍♂️" },
-                        { name: "Solicitação e Controle de LTCA, PGRSS, PGR, PCMSO", icon: "📊" },
-                        { name: "Licença Ambiental", icon: "🌱" },
-                        { name: "Processos Administrativos em Geral", icon: "📋" },
-                        { name: "Acompanhamento de Vencimentos de Licenças", icon: "⏰" },
-                        { name: "CETESB", icon: "🌿" },
-                        { name: "CNES", icon: "🏥" },
-                        { name: "Acompanhamento na Gestão de Contratos", icon: "📋" }
-                      ].map((service, index) => (
-                        <motion.li
-                          key={index}
-                          className="flex items-center space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.5, delay: 1.0 + index * 0.1 }}
-                          whileHover={{ x: -5 }}
-                        >
-                          <span className="text-2xl flex-shrink-0">{service.icon}</span>
-                          <span className="text-white text-sm leading-relaxed">{service.name}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
+                    <div className="card p-6">
+                      <ul className="space-y-3">
+                        {[
+                          { name: "Solicitação e Controle de LTCA, PGRSS, PGR, PCMSO", icon: "📊" },
+                          { name: "Licença Ambiental", icon: "🌱" },
+                          { name: "Processos Administrativos em Geral", icon: "📋" },
+                          { name: "Acompanhamento de Vencimentos de Licenças", icon: "⏰" },
+                          { name: "CETESB", icon: "🌿" },
+                          { name: "CNES", icon: "🏥" },
+                          { name: "Acompanhamento na Gestão de Contratos", icon: "📋" }
+                        ].map((service, index) => (
+                          <motion.li
+                            key={index}
+                            className="flex items-start p-3 rounded-lg hover:bg-white/5 transition-colors"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.5, delay: 1.0 + index * 0.1 }}
+                            whileHover={{ x: -5 }}
+                          >
+                            <span className="text-2xl flex-shrink-0 mt-1 mr-8">{service.icon}</span>
+                            <span className="text-white text-sm leading-relaxed text-left flex-1">{service.name}</span>
+                            </motion.li>
+                        ))}
+                      </ul>
+                    </div>
                   </motion.div>
                 </div>
               </motion.div>
