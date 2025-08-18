@@ -20,6 +20,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  padding-bottom: 8rem; /* Espaço para o menu mobile */
 }
 
 .slide-content {
@@ -1048,6 +1049,11 @@ tr:hover td {
 	.navigation-dots {
 		display: none !important;
 	}
+
+	/* Ajustar espaçamento inferior para mobile */
+	.slide-container {
+		padding-bottom: 10rem; /* Mais espaço para o menu mobile */
+	}
 }
 
 /* Barra inferior mobile */
@@ -1056,15 +1062,16 @@ tr:hover td {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: rgba(0, 0, 0, 0.9);
+	background: rgba(0, 0, 0, 0.95);
 	backdrop-filter: blur(20px);
 	border-top: 1px solid rgba(255, 255, 255, 0.1);
 	padding: 1rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	z-index: 1000;
+	z-index: 9999;
 	gap: 1rem;
+	box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .slide-indicator {
