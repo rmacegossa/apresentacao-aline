@@ -268,27 +268,27 @@ function App() {
               >
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                   {[
-                    { name: "Transplante Capilar", icon: "💇‍♂️" },
-                    { name: "Cirurgia Plástica", icon: "👨‍⚕️" },
-                    { name: "Dermatologia", icon: "🔬" },
-                    { name: "Anestesiologia", icon: "💉" },
-                    { name: "Enfermagem", icon: "👩‍⚕️" },
-                    { name: "Fisioterapia", icon: "🏃‍♂️" },
-                    { name: "Nutrição", icon: "🥗" },
-                    { name: "Psicologia", icon: "🧠" },
-                    { name: "Farmacologia", icon: "💊" },
-                    { name: "Radiologia", icon: "📷" },
-                    { name: "Laboratório", icon: "🧪" },
-                    { name: "UTI", icon: "🏥" },
-                    { name: "Centro Cirúrgico", icon: "⚕️" },
-                    { name: "Ambulatório", icon: "🚑" },
-                    { name: "Pronto Socorro", icon: "🚨" },
-                    { name: "Hemodinâmica", icon: "❤️" },
-                    { name: "Endoscopia", icon: "🔍" },
-                    { name: "Tomografia", icon: "🔄" },
-                    { name: "Ressonância", icon: "🧲" },
-                    { name: "Ultrassom", icon: "📡" },
-                    { name: "Eletrocardiograma", icon: "📈" }
+                    { name: "Abertura", icon: "🚪" },
+                    { name: "Alteração", icon: "✏️" },
+                    { name: "Encerramento", icon: "🔒" },
+                    { name: "Solicitação de Inscrição Municipal", icon: "🏛️" },
+                    { name: "Alvará de Funcionamento", icon: "📋" },
+                    { name: "Protocolo e Acompanhamento de Análise de LTA", icon: "🏗️" },
+                    { name: "Cadastro, Acompanhamento e Renovação de COREN, CRM, CRF", icon: "👨‍⚕️" },
+                    { name: "Solicitação e Acompanhamento de Inscrição Secundária CRM", icon: "📝" },
+                    { name: "Alvará do Corpo de Bombeiros", icon: "🚒" },
+                    { name: "Elaboração de Documentação para Alvará Sanitário", icon: "📄" },
+                    { name: "Solicitação e Controle de Certificados Digitais", icon: "🔐" },
+                    { name: "Verificação de Débitos em Cartório", icon: "⚖️" },
+                    { name: "Vivência em Órgãos Públicos", icon: "🏢" },
+                    { name: "Acompanhamento e Instrução para Atendimento a Fiscais", icon: "👮‍♂️" },
+                    { name: "Solicitação e Controle de LTCA, PGRSS, PGR, PCMSO", icon: "📊" },
+                    { name: "Licença Ambiental", icon: "🌱" },
+                    { name: "Processos Administrativos em Geral", icon: "📋" },
+                    { name: "Acompanhamento de Vencimentos de Licenças", icon: "⏰" },
+                    { name: "CETESB", icon: "🌿" },
+                    { name: "CNES", icon: "🏥" },
+                    { name: "Acompanhamento na Gestão de Contratos", icon: "📋" }
                   ].map((service, index) => (
                     <motion.div
                       key={index}
