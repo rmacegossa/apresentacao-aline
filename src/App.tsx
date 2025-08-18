@@ -266,42 +266,79 @@ function App() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="mt-12"
               >
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {[
-                    { name: "Abertura", icon: "🚪" },
-                    { name: "Alteração", icon: "✏️" },
-                    { name: "Encerramento", icon: "🔒" },
-                    { name: "Solicitação de Inscrição Municipal", icon: "🏛️" },
-                    { name: "Alvará de Funcionamento", icon: "📋" },
-                    { name: "Protocolo e Acompanhamento de Análise de LTA", icon: "🏗️" },
-                    { name: "Cadastro, Acompanhamento e Renovação de COREN, CRM, CRF", icon: "👨‍⚕️" },
-                    { name: "Solicitação e Acompanhamento de Inscrição Secundária CRM", icon: "📝" },
-                    { name: "Alvará do Corpo de Bombeiros", icon: "🚒" },
-                    { name: "Elaboração de Documentação para Alvará Sanitário", icon: "📄" },
-                    { name: "Solicitação e Controle de Certificados Digitais", icon: "🔐" },
-                    { name: "Verificação de Débitos em Cartório", icon: "⚖️" },
-                    { name: "Vivência em Órgãos Públicos", icon: "🏢" },
-                    { name: "Acompanhamento e Instrução para Atendimento a Fiscais", icon: "👮‍♂️" },
-                    { name: "Solicitação e Controle de LTCA, PGRSS, PGR, PCMSO", icon: "📊" },
-                    { name: "Licença Ambiental", icon: "🌱" },
-                    { name: "Processos Administrativos em Geral", icon: "📋" },
-                    { name: "Acompanhamento de Vencimentos de Licenças", icon: "⏰" },
-                    { name: "CETESB", icon: "🌿" },
-                    { name: "CNES", icon: "🏥" },
-                    { name: "Acompanhamento na Gestão de Contratos", icon: "📋" }
-                  ].map((service, index) => (
-                    <motion.div
-                      key={index}
-                      className="card p-4"
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.6 + index * 0.05 }}
-                      whileHover={{ y: -5, scale: 1.02 }}
-                    >
-                      <div className="text-3xl mb-3 text-center">{service.icon}</div>
-                      <h3 className="text-sm font-semibold text-white text-center leading-tight">{service.name}</h3>
-                    </motion.div>
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Coluna Esquerda */}
+                  <motion.div
+                    className="space-y-4"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                  >
+                    <h3 className="text-xl font-semibold text-white mb-6 text-center">Serviços Administrativos</h3>
+                    <ul className="space-y-3">
+                      {[
+                        { name: "Abertura", icon: "🚪" },
+                        { name: "Alteração", icon: "✏️" },
+                        { name: "Encerramento", icon: "🔒" },
+                        { name: "Solicitação de Inscrição Municipal", icon: "🏛️" },
+                        { name: "Alvará de Funcionamento", icon: "📋" },
+                        { name: "Protocolo e Acompanhamento de Análise de LTA", icon: "🏗️" },
+                        { name: "Cadastro, Acompanhamento e Renovação de COREN, CRM, CRF", icon: "👨‍⚕️" },
+                        { name: "Solicitação e Acompanhamento de Inscrição Secundária CRM", icon: "📝" },
+                        { name: "Alvará do Corpo de Bombeiros", icon: "🚒" },
+                        { name: "Elaboração de Documentação para Alvará Sanitário", icon: "📄" },
+                        { name: "Solicitação e Controle de Certificados Digitais", icon: "🔐" }
+                      ].map((service, index) => (
+                        <motion.li
+                          key={index}
+                          className="flex items-center space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                          whileHover={{ x: 5 }}
+                        >
+                          <span className="text-2xl flex-shrink-0">{service.icon}</span>
+                          <span className="text-white text-sm leading-relaxed">{service.name}</span>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </motion.div>
+
+                  {/* Coluna Direita */}
+                  <motion.div
+                    className="space-y-4"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                  >
+                    <h3 className="text-xl font-semibold text-white mb-6 text-center">Serviços Especializados</h3>
+                    <ul className="space-y-3">
+                      {[
+                        { name: "Verificação de Débitos em Cartório", icon: "⚖️" },
+                        { name: "Vivência em Órgãos Públicos", icon: "🏢" },
+                        { name: "Acompanhamento e Instrução para Atendimento a Fiscais", icon: "👮‍♂️" },
+                        { name: "Solicitação e Controle de LTCA, PGRSS, PGR, PCMSO", icon: "📊" },
+                        { name: "Licença Ambiental", icon: "🌱" },
+                        { name: "Processos Administrativos em Geral", icon: "📋" },
+                        { name: "Acompanhamento de Vencimentos de Licenças", icon: "⏰" },
+                        { name: "CETESB", icon: "🌿" },
+                        { name: "CNES", icon: "🏥" },
+                        { name: "Acompanhamento na Gestão de Contratos", icon: "📋" }
+                      ].map((service, index) => (
+                        <motion.li
+                          key={index}
+                          className="flex items-center space-x-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.5, delay: 1.0 + index * 0.1 }}
+                          whileHover={{ x: -5 }}
+                        >
+                          <span className="text-2xl flex-shrink-0">{service.icon}</span>
+                          <span className="text-white text-sm leading-relaxed">{service.name}</span>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </motion.div>
                 </div>
               </motion.div>
             </div>
