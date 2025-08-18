@@ -8,35 +8,28 @@ interface IntroAnimationProps {
 const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
   const [showLogo, setShowLogo] = useState(true);
   const [showParticles, setShowParticles] = useState(false);
-  const [showCapa, setShowCapa] = useState(false);
 
   useEffect(() => {
     // Sequência de animação
     const timer1 = setTimeout(() => {
       setShowLogo(false);
       setShowParticles(true);
-    }, 2000); // Logo fica visível por 2 segundos
+    }, 2500); // Logo fica visível por 2.5 segundos
 
     const timer2 = setTimeout(() => {
-      setShowParticles(false);
-      setShowCapa(true);
-    }, 3500); // Partículas ficam visíveis por 1.5 segundos
-
-    const timer3 = setTimeout(() => {
       onComplete(); // Finaliza a animação
-    }, 5000); // Total de 5 segundos
+    }, 4000); // Total de 4 segundos
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
-      clearTimeout(timer3);
     };
   }, [onComplete]);
 
   // Componente de partículas
   const Particle = ({ delay, x, y }: { delay: number; x: number; y: number }) => (
     <motion.div
-      className="absolute w-2 h-2 bg-white rounded-full"
+      className="absolute w-3 h-3 bg-white rounded-full shadow-lg"
       initial={{ 
         x: 0, 
         y: 0, 
@@ -50,7 +43,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
         scale: 0 
       }}
       transition={{ 
-        duration: 1.5, 
+        duration: 2, 
         delay: delay,
         ease: "easeOut"
       }}
@@ -77,11 +70,10 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
           >
             <motion.div
               animate={{ 
-                scale: [1, 1.2, 1],
-                rotate: [0, 3, -3, 0]
+                scale: [1, 1.1, 1]
               }}
               transition={{ 
-                duration: 1.5,
+                duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
@@ -103,15 +95,15 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
           >
             {/* Partículas que se espalham em todas as direções */}
-            {Array.from({ length: 50 }).map((_, i) => {
-              const angle = (i / 50) * 2 * Math.PI;
-              const distance = 200 + Math.random() * 300;
+            {Array.from({ length: 80 }).map((_, i) => {
+              const angle = (i / 80) * 2 * Math.PI;
+              const distance = 150 + Math.random() * 400;
               const x = Math.cos(angle) * distance;
               const y = Math.sin(angle) * distance;
-              const delay = Math.random() * 0.5;
+              const delay = Math.random() * 0.3;
               
               return (
                 <Particle 
@@ -125,16 +117,7 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
           </motion.div>
         )}
 
-        {/* Transição para a Capa */}
-        {showCapa && (
-          <motion.div
-            key="capa-transition"
-            className="absolute inset-0 bg-black"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          />
-        )}
+
       </AnimatePresence>
     </div>
   );
