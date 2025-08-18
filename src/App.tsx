@@ -51,7 +51,7 @@ const NavigationDots = ({ currentSlide, totalSlides, onSlideChange }: {
 }
 
 // Componente de slide com transições elegantes
-const Slide = ({ children, isActive, slideIndex }: { children: React.ReactNode, isActive: boolean, slideIndex: number }) => {
+const Slide = ({ children, slideIndex }: { children: React.ReactNode, slideIndex: number }) => {
   const slideVariants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 1000 : -1000,
@@ -76,7 +76,7 @@ const Slide = ({ children, isActive, slideIndex }: { children: React.ReactNode, 
   }
 
   const slideTransition = {
-    type: "spring",
+    type: "spring" as const,
     stiffness: 300,
     damping: 30,
     duration: 0.8
@@ -174,9 +174,6 @@ function App() {
       console.log('Áudio inicializado com volume:', musicVolume)
     }
   }, [])
-
-  const nextSlide = () => setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1))
-  const prevSlide = () => setCurrentSlide(prev => Math.max(prev - 1, 0))
   
   // Função para finalizar animação de entrada
   const handleIntroComplete = () => {
@@ -480,7 +477,7 @@ function App() {
       {!showWelcome && !showIntro && (
         <AnimatePresence mode="wait" initial={false}>
         {currentSlide === 0 && (
-          <Slide key="slide-0" isActive={currentSlide === 0} slideIndex={0}>
+          <Slide key="slide-0" slideIndex={0}>
             <div className="slide-content">
               <div className="flex items-center justify-between gap-16">
                 <div className="flex-1 text-left">
@@ -520,7 +517,7 @@ function App() {
         )}
 
         {currentSlide === 1 && (
-          <Slide key="slide-1" isActive={currentSlide === 1} slideIndex={1}>
+          <Slide key="slide-1" slideIndex={1}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -645,7 +642,7 @@ function App() {
         )}
 
         {currentSlide === 2 && (
-          <Slide key="slide-2" isActive={currentSlide === 2} slideIndex={2}>
+          <Slide key="slide-2" slideIndex={2}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -731,7 +728,7 @@ function App() {
         )}
 
         {currentSlide === 3 && (
-          <Slide key="slide-3" isActive={currentSlide === 3} slideIndex={3}>
+          <Slide key="slide-3" slideIndex={3}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -793,7 +790,7 @@ function App() {
         )}
 
         {currentSlide === 4 && (
-          <Slide key="slide-4" isActive={currentSlide === 4} slideIndex={4}>
+          <Slide key="slide-4" slideIndex={4}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -873,7 +870,7 @@ function App() {
         )}
 
         {currentSlide === 5 && (
-          <Slide key="slide-5" isActive={currentSlide === 5} slideIndex={5}>
+          <Slide key="slide-5" slideIndex={5}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -951,7 +948,7 @@ function App() {
         )}
 
         {currentSlide === 6 && (
-          <Slide key="slide-6" isActive={currentSlide === 6} slideIndex={6}>
+          <Slide key="slide-6" slideIndex={6}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
