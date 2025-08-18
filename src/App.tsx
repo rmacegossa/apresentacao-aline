@@ -38,7 +38,7 @@ const NavigationDots = ({ currentSlide, totalSlides, onSlideChange }: {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
               >
-                <Icon className="w-2 h-2 text-black" />
+                <Icon className="w-2 h-2 text-white" />
               </motion.div>
             )}
           </motion.div>
