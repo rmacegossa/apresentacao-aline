@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, FileDown, Maximize2, Minimize2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, FileDown, Maximize2, Minimize2, Heart, Users, Award } from 'lucide-react';
 import { cn } from './lib/utils';
 import { 
   exportToPowerPoint, 
@@ -16,7 +16,7 @@ const NavigationDots = ({ currentSlide, totalSlides, onSlideChange }: {
   totalSlides: number
   onSlideChange: (slide: number) => void
 }) => {
-  const icons = [Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, FileDown]
+  const icons = [Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, Heart, Users, Award, FileDown]
   
   return (
     <div className="navigation-dots">
@@ -956,46 +956,8 @@ function App() {
           </div>
         </Slide>
 
-        {/* Slide 7: Exportação */}
+        {/* Slide 7: A Jornada - A Luta */}
         <Slide key={7} slideIndex={7}>
-          <div className="slide-content">
-            <h2 className="slide-title">Exportar Apresentação</h2>
-            <div className="export-options">
-              <motion.button
-                onClick={exportToPowerPoint}
-                className="export-btn powerpoint"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="export-icon">📊</span>
-                <span className="export-text">PowerPoint (.pptx)</span>
-              </motion.button>
-              
-              <motion.button
-                onClick={exportToPDF}
-                className="export-btn pdf"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="export-icon">📄</span>
-                <span className="export-text">PDF</span>
-              </motion.button>
-              
-              <motion.button
-                onClick={exportToHTML}
-                className="export-btn html"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="export-icon">🌐</span>
-                <span className="export-text">HTML</span>
-              </motion.button>
-            </div>
-          </div>
-        </Slide>
-
-        {/* Slide 8: A Jornada - A Luta */}
-        <Slide key={8} slideIndex={8}>
           <div className="slide-content">
             <h2 className="slide-title">A Luta pela Excelência</h2>
             <div className="story-section">
@@ -1041,8 +1003,8 @@ function App() {
           </div>
         </Slide>
 
-        {/* Slide 9: A Jornada - O Agradecimento */}
-        <Slide key={9} slideIndex={9}>
+        {/* Slide 8: A Jornada - O Agradecimento */}
+        <Slide key={8} slideIndex={8}>
           <div className="slide-content">
             <h2 className="slide-title">O Agradecimento</h2>
             <div className="story-section">
@@ -1093,6 +1055,44 @@ function App() {
               >
                 <h3>Vocês são a razão do nosso sucesso. A razão da nossa história.</h3>
               </motion.div>
+            </div>
+          </div>
+        </Slide>
+
+        {/* Slide 9: Exportação (ÚLTIMO SLIDE) */}
+        <Slide key={9} slideIndex={9}>
+          <div className="slide-content">
+            <h2 className="slide-title">Exportar Apresentação</h2>
+            <div className="export-options">
+              <motion.button
+                onClick={exportToPowerPoint}
+                className="export-btn powerpoint"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="export-icon">📊</span>
+                <span className="export-text">PowerPoint (.pptx)</span>
+              </motion.button>
+              
+              <motion.button
+                onClick={exportToPDF}
+                className="export-btn pdf"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="export-icon">📄</span>
+                <span className="export-text">PDF</span>
+              </motion.button>
+              
+              <motion.button
+                onClick={exportToHTML}
+                className="export-btn html"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="export-icon">🌐</span>
+                <span className="export-text">HTML</span>
+              </motion.button>
             </div>
           </div>
         </Slide>
