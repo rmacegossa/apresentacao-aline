@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, FileDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, FileDown, Maximize2, Minimize2 } from 'lucide-react';
 import { cn } from './lib/utils';
 import { 
   exportToPowerPoint, 
@@ -63,6 +63,7 @@ const Slide = ({ children, isActive }: { children: React.ReactNode, isActive: bo
 
 function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isFullScreen, setIsFullScreen] = useState(false)
   const totalSlides = 7
 
   // Navegação por teclado
@@ -76,6 +77,8 @@ function App() {
         setCurrentSlide(0)
       } else if (event.key === 'End') {
         setCurrentSlide(totalSlides - 1)
+      } else if (event.key === 'F11' || event.key === 'f') {
+        toggleFullScreen()
       }
     }
 
@@ -85,6 +88,21 @@ function App() {
 
   const nextSlide = () => setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1))
   const prevSlide = () => setCurrentSlide(prev => Math.max(prev - 1, 0))
+  
+  // Função para alternar full-screen
+  const toggleFullScreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen()
+        setIsFullScreen(true)
+      } else {
+        await document.exitFullscreen()
+        setIsFullScreen(false)
+      }
+    } catch (error) {
+      console.error('Erro ao alternar full-screen:', error)
+    }
+  }
 
   // Função para lidar com exportações
   const handleExport = async (type: string) => {
@@ -149,6 +167,21 @@ function App() {
           title="Próximo slide"
         >
           <ChevronRight className="w-6 h-6" />
+        </motion.button>
+        
+        {/* Botão Full-Screen */}
+        <motion.button
+          onClick={toggleFullScreen}
+          className="p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white transition-all hover:bg-white/20 hover:scale-110"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          title={isFullScreen ? "Sair do modo tela cheia" : "Modo tela cheia"}
+        >
+          {isFullScreen ? (
+            <Minimize2 className="w-6 h-6" />
+          ) : (
+            <Maximize2 className="w-6 h-6" />
+          )}
         </motion.button>
       </div>
 
