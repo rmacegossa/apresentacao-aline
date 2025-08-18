@@ -8,6 +8,7 @@ import {
   exportToHTML, 
   exportToText
 } from './lib/exportUtils';
+import IntroAnimation from './components/IntroAnimation';
 
 // Componente de navegação por pontos
 const NavigationDots = ({ currentSlide, totalSlides, onSlideChange }: {
@@ -64,6 +65,7 @@ const Slide = ({ children, isActive }: { children: React.ReactNode, isActive: bo
 function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isFullScreen, setIsFullScreen] = useState(false)
+  const [showIntro, setShowIntro] = useState(true)
   const totalSlides = 7
 
   // Navegação por teclado
@@ -88,6 +90,11 @@ function App() {
 
   const nextSlide = () => setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1))
   const prevSlide = () => setCurrentSlide(prev => Math.max(prev - 1, 0))
+  
+  // Função para finalizar animação de entrada
+  const handleIntroComplete = () => {
+    setShowIntro(false)
+  }
   
   // Função para alternar full-screen
   const toggleFullScreen = async () => {
@@ -131,6 +138,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* Animação de entrada */}
+      {showIntro && (
+        <IntroAnimation onComplete={handleIntroComplete} />
+      )}
+      
       {/* Barra de ferramentas no canto superior direito */}
       <div className="fixed top-8 right-8 z-50 flex items-center gap-4">
         {/* Indicador de slide atual */}
