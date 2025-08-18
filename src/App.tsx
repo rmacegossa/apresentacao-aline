@@ -198,14 +198,17 @@ function App() {
       </div>
 
       {/* Navegação por pontos */}
-      <NavigationDots
-        currentSlide={currentSlide}
-        totalSlides={totalSlides}
-        onSlideChange={setCurrentSlide}
-      />
+      {!showIntro && (
+        <NavigationDots
+          currentSlide={currentSlide}
+          totalSlides={totalSlides}
+          onSlideChange={setCurrentSlide}
+        />
+      )}
 
       {/* Slides */}
-      <AnimatePresence mode="wait">
+      {!showIntro && (
+        <AnimatePresence mode="wait">
         {currentSlide === 0 && (
           <Slide key="slide-0" isActive={currentSlide === 0}>
             <div className="slide-content">
@@ -698,7 +701,8 @@ function App() {
             </div>
           </Slide>
         )}
-      </AnimatePresence>
+        </AnimatePresence>
+      )}
     </div>
   )
 }

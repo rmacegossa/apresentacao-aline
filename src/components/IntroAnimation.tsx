@@ -54,6 +54,11 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
         delay: delay,
         ease: "easeOut"
       }}
+      style={{
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)'
+      }}
     />
   );
 
@@ -72,11 +77,11 @@ const IntroAnimation: React.FC<IntroAnimationProps> = ({ onComplete }) => {
           >
             <motion.div
               animate={{ 
-                scale: [1, 1.1, 1],
-                rotate: [0, 5, -5, 0]
+                scale: [1, 1.2, 1],
+                rotate: [0, 3, -3, 0]
               }}
               transition={{ 
-                duration: 2,
+                duration: 1.5,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
