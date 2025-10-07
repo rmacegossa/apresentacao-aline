@@ -16,7 +16,7 @@ const NavigationDots = ({ currentSlide, totalSlides, onSlideChange }: {
   totalSlides: number
   onSlideChange: (slide: number) => void
 }) => {
-  const icons = [Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, Heart, Users, Award, FileDown, FileDown]
+  const icons = [Home, Building2, FileText, AlertTriangle, CheckCircle, BarChart3, Heart, Users, Award, FileDown]
   
   return (
     <div className="navigation-dots">
@@ -110,36 +110,7 @@ function App() {
   const [audioEnabled, setAudioEnabled] = useState(true)
   const [presentationStartTime, setPresentationStartTime] = useState<Date | null>(null)
   const [elapsedTime, setElapsedTime] = useState(0)
-  const totalSlides = 11
-
-  // Dados para o slide Overview de Problemas
-  const problems = [
-    {
-      nome: "Cuiabá",
-      status: "Fase final de liberação Tipo I",
-      descricao: "A unidade passou por processo rigoroso de regularização junto à Vigilância Sanitária, motivado por denúncia que resultou em interdição temporária. Durante a fiscalização, foram exigidas diversas adequações, incluindo obras estruturais significativas. Todas as exigências foram devidamente atendidas, demonstrando o comprometimento da equipe com a conformidade e qualidade do serviço. Atualmente, a clínica encontra-se em fase final de liberação para operação como Tipo I, sendo que a classificação Tipo II ainda requer algumas intervenções adicionais."
-    },
-    {
-      nome: "Manaus",
-      status: "Projeto aprovado, obras em andamento",
-      descricao: "Em Manaus, a unidade enfrentou desafios estruturais que demandaram múltiplas obras e ajustes para atender às normas da Vigilância Sanitária. Após um período de trabalho intenso, o projeto foi recentemente aprovado, embora algumas intervenções ainda estejam em andamento. O processo evidencia o empenho da equipe em garantir a total adequação da unidade, seguindo todas as exigências legais e estruturais para operação segura e eficiente."
-    },
-    {
-      nome: "Porto Alegre",
-      status: "Validada pela Vigilância Sanitária",
-      descricao: "A clínica de Porto Alegre já foi validada pela Vigilância Sanitária, o que confirma a conformidade da unidade com os requisitos essenciais de operação. No momento, aguarda-se apenas a conclusão da análise do projeto para que possa obter a liberação final, permitindo a continuidade das atividades dentro dos padrões exigidos."
-    },
-    {
-      nome: "Florianópolis",
-      status: "Projeto aprovado, obra pendente",
-      descricao: "Em Florianópolis, a unidade passou por um longo processo de aprovação do projeto, que envolveu diversas idas e vindas e ajustes estruturais. Apesar de o projeto ter sido aprovado, ainda é necessária a realização de uma obra de adequação para que a clínica esteja totalmente pronta para liberação. Esse processo demonstra o cuidado da equipe em garantir que a unidade atenda integralmente às normas de segurança e qualidade."
-    },
-    {
-      nome: "Ribeirão Preto",
-      status: "Fase final, pendência RT",
-      descricao: "A unidade de Ribeirão Preto está em fase final de liberação. A clínica foi vistoriada e recebeu elogios da Vigilância Sanitária, com o projeto totalmente aprovado. No entanto, a liberação formal ainda depende da regularização de uma pendência do Responsável Técnico junto ao CRM. A expectativa é que, assim que essa questão seja solucionada, a clínica esteja plenamente operacional."
-    }
-  ]
+  const totalSlides = 10
 
   // Timer da apresentação
   useEffect(() => {
@@ -445,7 +416,7 @@ function App() {
             >
               <ChevronRight className="w-5 h-5" />
             </motion.button>
-          </div>
+      </div>
 
           {/* Controles de música */}
           <div className="music-controls">
@@ -460,7 +431,7 @@ function App() {
               ) : (
                 <span className="music-icon">▶</span>
               )}
-            </button>
+        </button>
           </div>
 
           {/* Botão fullscreen */}
@@ -479,6 +450,7 @@ function App() {
       {/* Slides */}
       {!showWelcome && !showIntro && (
         <AnimatePresence initial={false}>
+        {/* Slide 1: Capa */}
         {currentSlide === 0 && (
           <Slide key="slide-0" slideIndex={0}>
             <div className="slide-content">
@@ -519,6 +491,7 @@ function App() {
           </Slide>
         )}
 
+        {/* Slide 2: Serviços de Responsabilidade do Setor */}
         {currentSlide === 1 && (
           <Slide key="slide-1" slideIndex={1}>
             <div className="slide-content">
@@ -615,13 +588,13 @@ function App() {
                     <div className="card p-6">
                       <ul className="space-y-3">
                         {[
-                          { name: "Solicitação e Controle de LTCA, PGRSS, PGR, PCMSO", icon: "📊" },
-                          { name: "Licença Ambiental", icon: "🌱" },
-                          { name: "Processos Administrativos em Geral", icon: "📋" },
-                          { name: "Acompanhamento de Vencimentos de Licenças", icon: "⏰" },
-                          { name: "CETESB", icon: "🌿" },
-                          { name: "CNES", icon: "🏥" },
-                          { name: "Acompanhamento na Gestão de Contratos", icon: "📋" }
+                          { name: "Solicitação e Acompanhamento de Inscrição Secundária COREN", icon: "📋" },
+                          { name: "Solicitação e Acompanhamento de Inscrição Secundária CRF", icon: "💊" },
+                          { name: "Solicitação e Acompanhamento de Inscrição Secundária CRM", icon: "👨‍⚕️" },
+                          { name: "Solicitação e Acompanhamento de Inscrição Secundária COREN", icon: "📋" },
+                          { name: "Solicitação e Acompanhamento de Inscrição Secundária CRF", icon: "💊" },
+                          { name: "Solicitação e Acompanhamento de Inscrição Secundária CRM", icon: "👨‍⚕️" },
+                          { name: "Solicitação e Acompanhamento de Inscrição Secundária COREN", icon: "📋" }
                         ].map((service, index) => (
                           <motion.li
                             key={index}
@@ -633,7 +606,7 @@ function App() {
                           >
                             <span className="text-2xl flex-shrink-0 mt-1 mr-8">{service.icon}</span>
                             <span className="text-white text-sm leading-relaxed text-left flex-1">{service.name}</span>
-                            </motion.li>
+                          </motion.li>
                         ))}
                       </ul>
                     </div>
@@ -644,6 +617,7 @@ function App() {
           </Slide>
         )}
 
+        {/* Slide 3: Alvará Sanitário */}
         {currentSlide === 2 && (
           <Slide key="slide-2" slideIndex={2}>
             <div className="slide-content">
@@ -661,77 +635,130 @@ function App() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="mt-12"
               >
-                <div className="card p-6">
-                  <h3 className="text-2xl font-semibold text-white mb-6 text-center">Status das Clínicas</h3>
-                  <div className="table-container">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="border-b border-white/20">
-                          <th className="text-left p-3 text-white font-semibold">Clínicas</th>
-                          <th className="text-left p-3 text-white font-semibold">TIPO</th>
-                          <th className="text-left p-3 text-white font-semibold">Aprovação LTA</th>
-                          <th className="text-left p-3 text-white font-semibold">Alvará Sanitário</th>
-                          <th className="text-left p-3 text-white font-semibold">Validade</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[
-                          { clinica: "SP Indianópolis", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "03/05/2026" },
-                          { clinica: "RJ Barra da Tijuca", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "30/04/2026" },
-                          { clinica: "SP Alphaville 26ª", tipo: "Tipo I", lta: "Não precisa", alvara: "Sim", validade: "12/12/2025" },
-                          { clinica: "MG BH", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "17/07/2025 (Aguardando visita para renovação)" },
-                          { clinica: "BA Salvador", tipo: "Tipo I", lta: "Sim", alvara: "Sim", validade: "31/12/2025" },
-                          { clinica: "SC Balneário", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "31/12/2025" },
-                          { clinica: "DF Brasília I*", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "Aguardando clínica iniciar operações - 01/2026" },
-                          { clinica: "PE Recife", tipo: "Tipo II", lta: "Protocolo", alvara: "Sim", validade: "23/10/2026 (somente para Tipo I)" },
-                          { clinica: "ES Vitoria", tipo: "Tipo II", lta: "Não precisa", alvara: "Sim", validade: "28/02/2029" },
-                          { clinica: "GO Jardim America", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "31/12/2025" },
-                          { clinica: "SP Tatuapé", tipo: "Tipo II", lta: "Não precisa", alvara: "Sim", validade: "28/11/2027" },
-                          { clinica: "DF Brasília II", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "18/01/2026" },
-                          { clinica: "RJ Copacabana", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "30/4/2026" },
-                          { clinica: "MG Uberlandia", tipo: "Tipo II", lta: "Protocolo", alvara: "Sim", validade: "4/7/2028" },
-                          { clinica: "SP Jardins", tipo: "Tipo I", lta: "Não precisa", alvara: "Sim", validade: "11/10/2026" },
-                          { clinica: "DF Brasília III", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "30/04/2025 - Aguardando visita" }
-                        ].map((row, index) => (
-                          <motion.tr
-                            key={index}
-                            className="border-b border-white/10 hover:bg-white/5 transition-colors"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.6 + index * 0.05 }}
-                          >
-                            <td className="p-3 text-white font-medium">{row.clinica}</td>
-                            <td className="p-3 text-gray-300">{row.tipo}</td>
-                            <td className="p-3 text-gray-300">
-                              {row.lta === 'Sim' ? (
-                                <span className="status-badge status-approved">Sim</span>
-                              ) : row.lta === 'Não precisa' ? (
-                                <span className="status-badge status-not-needed">Não precisa</span>
-                              ) : (
-                                <span className="status-badge status-protocol">Protocolo</span>
-                              )}
-                            </td>
-                            <td className="p-3 text-gray-300">
-                              {row.alvara === 'Sim' ? (
-                                <span className="status-badge status-approved">Sim</span>
-                              ) : (
-                                <span className="status-badge status-protocol">Protocolo</span>
-                              )}
-                            </td>
-                            <td className="p-3 text-gray-300 text-xs">{row.validade}</td>
-                          </motion.tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                <div className="table-container">
+                  <table className="w-full">
+                    <thead>
+                      <tr>
+                        <th>Clínicas</th>
+                        <th>TIPO I OU II</th>
+                        <th>Aprovação LTA</th>
+                        <th>Alvará Sanitário</th>
+                        <th>Validade</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { clinica: "SP Indianópolis", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "03/05/2026" },
+                        { clinica: "RJ Barra da Tijuca", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "30/04/2026" },
+                        { clinica: "SP Alphaville 26ª", tipo: "Tipo I", lta: "Não precisa", alvara: "Sim", validade: "12/12/2025" },
+                        { clinica: "MG BH", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "17/07/2025" },
+                        { clinica: "BA Salvador", tipo: "Tipo I", lta: "Sim", alvara: "Sim", validade: "31/12/2025" },
+                        { clinica: "SC Balneário", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "31/12/2025" },
+                        { clinica: "DF Brasília I*", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "01/2026" },
+                        { clinica: "PE Recife", tipo: "Tipo II", lta: "Protocolo", alvara: "Sim", validade: "23/10/2026" },
+                        { clinica: "ES Vitoria", tipo: "Tipo II", lta: "Não precisa", alvara: "Sim", validade: "28/02/2029" },
+                        { clinica: "GO Jardim America", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "31/12/2025" },
+                        { clinica: "SP Tatuapé", tipo: "Tipo II", lta: "Não precisa", alvara: "Sim", validade: "28/11/2027" },
+                        { clinica: "DF Brasília II", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "18/01/2026" },
+                        { clinica: "RJ Copacabana", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "30/4/2026" },
+                        { clinica: "MG Uberlandia", tipo: "Tipo II", lta: "Protocolo", alvara: "Sim", validade: "4/7/2028" },
+                        { clinica: "SP Jardins", tipo: "Tipo I", lta: "Não precisa", alvara: "Sim", validade: "11/10/2026" },
+                        { clinica: "DF Brasília III", tipo: "Tipo II", lta: "Sim", alvara: "Sim", validade: "30/04/2025" }
+                      ].map((row, index) => (
+                        <motion.tr
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                          className="hover:bg-white/5"
+                        >
+                          <td className="p-3 text-center">{row.clinica}</td>
+                          <td className="p-3 text-center">{row.tipo}</td>
+                          <td className="p-3 text-center">
+                            <span className={`status-badge ${row.lta === 'Sim' ? 'approved' : row.lta === 'Protocolo' ? 'pending' : 'not-needed'}`}>
+                              {row.lta}
+                            </span>
+                          </td>
+                          <td className="p-3 text-center">
+                            <span className="status-badge approved">{row.alvara}</span>
+                          </td>
+                          <td className="p-3 text-center text-sm">{row.validade}</td>
+                        </motion.tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </motion.div>
             </div>
           </Slide>
         )}
 
+        {/* Slide 4: Maiores Dificuldades */}
         {currentSlide === 3 && (
           <Slide key="slide-3" slideIndex={3}>
+            <div className="slide-content">
+              <motion.h1 
+                className="slide-title text-white text-4xl md:text-6xl"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Maiores Dificuldades
+              </motion.h1>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="mt-12"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    {
+                      title: "Inadequação da infraestrutura física à RDC 50",
+                      icon: "🏗️"
+                    },
+                    {
+                      title: "Alto volume de denúncias e fiscalizações",
+                      icon: "📋"
+                    },
+                    {
+                      title: "Escassez de profissionais com RQE para atuar como RT",
+                      icon: "👨‍⚕️"
+                    },
+                    {
+                      title: "Vácuo legislativo para transplante capilar",
+                      icon: "⚖️"
+                    },
+                    {
+                      title: "Inconsistência técnica nas fiscalizações",
+                      icon: "🔍"
+                    },
+                    {
+                      title: "Pressões e interferências externas na operação",
+                      icon: "⚠️"
+                    }
+                  ].map((difficulty, index) => (
+                    <motion.div
+                      key={index}
+                      className="card p-6"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+                      whileHover={{ y: -5, scale: 1.02 }}
+                    >
+                      <div className="text-4xl mb-4 text-center">{difficulty.icon}</div>
+                      <h3 className="text-lg font-semibold text-white text-center leading-tight">{difficulty.title}</h3>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </Slide>
+        )}
+
+        {/* Slide 5: Unidades em Processo de Liberação */}
+        {currentSlide === 4 && (
+          <Slide key="slide-4" slideIndex={4}>
             <div className="slide-content">
               <motion.h1 
                 className="slide-title text-white text-4xl md:text-6xl"
@@ -747,63 +774,52 @@ function App() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="mt-12"
               >
-                <div className="card p-6">
-                  <h3 className="text-2xl font-semibold text-white mb-6 text-center">Status das Unidades em Processo</h3>
-                  <div className="table-container">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="border-b border-white/20">
-                          <th className="text-left p-3 text-white font-semibold">Clínicas</th>
-                          <th className="text-left p-3 text-white font-semibold">TIPO</th>
-                          <th className="text-left p-3 text-white font-semibold">Aprovação LTA</th>
-                          <th className="text-left p-3 text-white font-semibold">Alvará Sanitário</th>
-                          <th className="text-left p-3 text-white font-semibold">Validade</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[
-                          { clinica: "Cuiabá", tipo: "Tipo II", lta: "Protocolo", alvara: "Protocolo", validade: "Protocolo inicial em 05/2023 - refeito em 07/2024" },
-                          { clinica: "Manaus", tipo: "Tipo II", lta: "Sim", alvara: "Protocolo", validade: "Protocolo desde 04/2024" },
-                          { clinica: "Porto Velho", tipo: "Tipo II", lta: "Não precisa", alvara: "Protocolo", validade: "" },
-                          { clinica: "Porto Alegre", tipo: "Tipo II", lta: "Protocolo", alvara: "Protocolo", validade: "Protocolo desde 11.2023. Clínica aprovada pela fiscalização sanitária aguardando liberação do projeto." },
-                          { clinica: "Florianopolis", tipo: "Tipo II", lta: "Protocolo", alvara: "Protocolo", validade: "" },
-                          { clinica: "Ribeirão Preto", tipo: "Tipo II", lta: "Sim", alvara: "Protocolo", validade: "Protocolo desde 11/2024" },
-                          { clinica: "Campinas II", tipo: "Tipo II", lta: "Não precisa", alvara: "Protocolo", validade: "Renovação cancelada" },
-                          { clinica: "Mogi das Cruzes*", tipo: "Tipo II", lta: "Não precisa", alvara: "Protocolo", validade: "Protocolo desde 04/2024" },
-                          { clinica: "Aracaju*", tipo: "Tipo II", lta: "Não precisa", alvara: "Protocolo", validade: "Protocolo inicial em 01/2024 - Renovado em 06/2025" },
-                          { clinica: "Montes Claros", tipo: "Tipo II", lta: "Não precisa", alvara: "Protocolo", validade: "-" }
-                        ].map((row, index) => (
-                          <motion.tr
-                            key={index}
-                            className="border-b border-white/10 hover:bg-white/5 transition-colors"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.6 + index * 0.05 }}
-                          >
-                            <td className="p-3 text-white font-medium">{row.clinica}</td>
-                            <td className="p-3 text-gray-300">{row.tipo}</td>
-                            <td className="p-3 text-gray-300">
-                              {row.lta === 'Sim' ? (
-                                <span className="status-badge status-approved">Sim</span>
-                              ) : row.lta === 'Não precisa' ? (
-                                <span className="status-badge status-not-needed">Não precisa</span>
-                              ) : (
-                                <span className="status-badge status-protocol">Protocolo</span>
-                              )}
-                            </td>
-                            <td className="p-3 text-gray-300">
-                              {row.alvara === 'Sim' ? (
-                                <span className="status-badge status-approved">Sim</span>
-                              ) : (
-                                <span className="status-badge status-protocol">Protocolo</span>
-                              )}
-                            </td>
-                            <td className="p-3 text-gray-300 text-xs">{row.validade}</td>
-                          </motion.tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                <div className="table-container">
+                  <table className="w-full">
+                    <thead>
+                      <tr>
+                        <th>Clínicas</th>
+                        <th>TIPO I OU II</th>
+                        <th>Aprovação LTA</th>
+                        <th>Alvará Sanitário</th>
+                        <th>Validade</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { clinica: "Cuiabá", tipo: "Tipo II", lta: "Protocolo", alvara: "Protocolo", validade: "Protocolo inicial em 05/2023 - refeito em 07/2024" },
+                        { clinica: "Manaus", tipo: "Tipo II", lta: "Sim", alvara: "Protocolo", validade: "Protocolo desde 04/2024" },
+                        { clinica: "Porto Velho", tipo: "Tipo II", lta: "Não precisa", alvara: "Protocolo", validade: "Protocolo desde 11.2023" },
+                        { clinica: "Porto Alegre", tipo: "Tipo II", lta: "Protocolo", alvara: "Protocolo", validade: "Protocolo desde 11.2023" },
+                        { clinica: "Florianópolis", tipo: "Tipo II", lta: "Protocolo", alvara: "Protocolo", validade: "Protocolo desde 11.2023" },
+                        { clinica: "Ribeirão Preto", tipo: "Tipo II", lta: "Sim", alvara: "Protocolo", validade: "Protocolo desde 11/2024" },
+                        { clinica: "Campinas II", tipo: "Tipo II", lta: "Não precisa", alvara: "Protocolo", validade: "Renovação cancelada" },
+                        { clinica: "Mogi das Cruzes*", tipo: "Tipo II", lta: "Não precisa", alvara: "Protocolo", validade: "Protocolo desde 04/2024" },
+                        { clinica: "Aracaju*", tipo: "Tipo II", lta: "Não precisa", alvara: "Protocolo", validade: "Protocolo inicial em 01/2024 - Renovado em 06/2025" },
+                        { clinica: "Montes Claros", tipo: "Tipo II", lta: "Não precisa", alvara: "Protocolo", validade: "Protocolo desde 04/2024" }
+                      ].map((row, index) => (
+                        <motion.tr
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                          className="hover:bg-white/5"
+                        >
+                          <td className="p-3 text-center">{row.clinica}</td>
+                          <td className="p-3 text-center">{row.tipo}</td>
+                          <td className="p-3 text-center">
+                            <span className={`status-badge ${row.lta === 'Sim' ? 'approved' : row.lta === 'Protocolo' ? 'pending' : 'not-needed'}`}>
+                              {row.lta}
+                            </span>
+                          </td>
+                          <td className="p-3 text-center">
+                            <span className="status-badge pending">{row.alvara}</span>
+                          </td>
+                          <td className="p-3 text-center text-sm">{row.validade}</td>
+                        </motion.tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </motion.div>
             </div>
@@ -811,167 +827,308 @@ function App() {
         )}
 
         {/* Slide 6: Overview de Problemas */}
-        <Slide key={6} slideIndex={6}>
-          <div className="slide-content">
-            <h2 className="slide-title">Overview de Problemas</h2>
-            <div className="problems-grid">
-              {problems.map((clinica, index) => (
-                <motion.div
-                  key={clinica.nome}
-                  className="problem-card"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.2 }}
-                >
-                  <h3 className="clinica-nome">{clinica.nome}</h3>
-                  <span className="status-tag">{clinica.status}</span>
-                  <p className="clinica-descricao">{clinica.descricao}</p>
-                </motion.div>
-              ))}
+        {currentSlide === 5 && (
+          <Slide key="slide-5" slideIndex={5}>
+            <div className="slide-content">
+              <motion.h1 
+                className="slide-title text-white text-4xl md:text-6xl"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Overview de Problemas
+              </motion.h1>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="mt-12"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {[
+                    {
+                      clinica: "Cuiabá",
+                      icon: "🏗️",
+                      status: "Fase final de liberação Tipo I",
+                      description: "A unidade passou por processo rigoroso de regularização junto à Vigilância Sanitária, motivado por denúncia que resultou em interdição temporária. Durante a fiscalização, foram exigidas diversas adequações, incluindo obras estruturais significativas. Todas as exigências foram devidamente atendidas, demonstrando o comprometimento da equipe com a conformidade e qualidade do serviço. Atualmente, a clínica encontra-se em fase final de liberação para operação como Tipo I, sendo que a classificação Tipo II ainda requer algumas intervenções adicionais."
+                    },
+                    {
+                      clinica: "Manaus",
+                      icon: "🔧",
+                      status: "Projeto aprovado, obras em andamento",
+                      description: "Em Manaus, a unidade enfrentou desafios estruturais que demandaram múltiplas obras e ajustes para atender às normas da Vigilância Sanitária. Após um período de trabalho intenso, o projeto foi recentemente aprovado, embora algumas intervenções ainda estejam em andamento. O processo evidencia o empenho da equipe em garantir a total adequação da unidade, seguindo todas as exigências legais e estruturais para operação segura e eficiente."
+                    },
+                    {
+                      clinica: "Porto Alegre",
+                      icon: "✅",
+                      status: "Validada pela Vigilância Sanitária",
+                      description: "A clínica de Porto Alegre já foi validada pela Vigilância Sanitária, o que confirma a conformidade da unidade com os requisitos essenciais de operação. No momento, aguarda-se apenas a conclusão da análise do projeto para que possa obter a liberação final, permitindo a continuidade das atividades dentro dos padrões exigidos."
+                    },
+                    {
+                      clinica: "Florianópolis",
+                      icon: "📋",
+                      status: "Projeto aprovado, obra pendente",
+                      description: "Em Florianópolis, a unidade passou por um longo processo de aprovação do projeto, que envolveu diversas idas e vindas e ajustes estruturais. Apesar de o projeto ter sido aprovado, ainda é necessária a realização de uma obra de adequação para que a clínica esteja totalmente pronta para liberação. Esse processo demonstra o cuidado da equipe em garantir que a unidade atenda integralmente às normas de segurança e qualidade."
+                    },
+                    {
+                      clinica: "Ribeirão Preto",
+                      icon: "🎯",
+                      status: "Fase final, pendência RT",
+                      description: "A unidade de Ribeirão Preto está em fase final de liberação. A clínica foi vistoriada e recebeu elogios da Vigilância Sanitária, com o projeto totalmente aprovado. No entanto, a liberação formal ainda depende da regularização de uma pendência do Responsável Técnico junto ao CRM. A expectativa é que, assim que essa questão seja solucionada, a clínica esteja plenamente operacional."
+                    }
+                  ].map((clinica, index) => (
+                    <motion.div
+                      key={index}
+                      className="card p-6"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+                      whileHover={{ y: -5, scale: 1.02 }}
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="text-3xl flex-shrink-0">{clinica.icon}</div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-3">
+                            <h3 className="text-xl font-semibold text-white">{clinica.clinica}</h3>
+                            <span className="status-tag">
+                              {clinica.status}
+                            </span>
+                          </div>
+                          <p className="text-gray-300 text-sm leading-relaxed">{clinica.description}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
             </div>
-          </div>
-        </Slide>
+          </Slide>
+        )}
 
         {/* Slide 7: A Jornada - O Início */}
-        <Slide key={7} slideIndex={7}>
+        {currentSlide === 6 && (
+        <Slide key="slide-6" slideIndex={6}>
           <div className="slide-content">
-            <h2 className="slide-title">A Jornada dos Construtores da Confiança</h2>
+            <motion.h2 
+              className="slide-title story-title"
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              A Jornada dos Construtores da Confiança
+            </motion.h2>
+            
             <div className="story-section">
+              {/* Ícone ilustrativo */}
+              <motion.div
+                className="story-icon-container"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              >
+                <div className="story-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                  </svg>
+                </div>
+              </motion.div>
+              
+              {/* Primeiro parágrafo */}
               <motion.div
                 className="story-paragraph"
-                initial={{ opacity: 0, x: -100 }}
+                initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5, duration: 1 }}
+                transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
               >
                 <p>
-                  Por trás de cada <span className="keyword-zoom">porta de vidro</span> que agora se abre para um novo paciente... 
-                  por trás de cada <span className="keyword-zoom">sorriso</span> que se reflete no espelho após um transplante capilar... 
-                  existe uma <span className="keyword-zoom">base</span>. Uma fundação que nós, juntos, tivemos a honra de construir.
+                  Por trás de cada <span className="highlight-word">porta de vidro</span> que agora se abre para um novo paciente... 
+                  por trás de cada <span className="highlight-word">sorriso</span> que se reflete no espelho após um transplante capilar... 
+                  existe uma <span className="highlight-word">base</span>. Uma fundação que nós, juntos, tivemos a honra de construir.
                 </p>
               </motion.div>
               
+              {/* Segundo parágrafo */}
               <motion.div
                 className="story-paragraph"
-                initial={{ opacity: 0, x: 100 }}
+                initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 1 }}
+                transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
               >
                 <p>
-                  Quando a <span className="keyword-zoom">Stanley's Hair</span> nos confiou a missão de expandir a sua visão, 
+                  Quando a <span className="highlight-word">Stanley's Hair</span> nos confiou a missão de expandir a sua visão, 
                   o nosso desafio era claro. Não era apenas abrir novas clínicas, mas garantir que o 
-                  <span className="keyword-zoom">sonho</span> de um farol de excelência e um santuário para a confiança perdida 
-                  se sustentasse em uma base inabalável de <span className="keyword-zoom">legalidade</span> e conformidade.
+                  <span className="highlight-word">sonho</span> de um farol de excelência e um santuário para a confiança perdida 
+                  se sustentasse em uma base inabalável de <span className="highlight-word">legalidade</span> e conformidade.
                 </p>
               </motion.div>
             </div>
           </div>
         </Slide>
+        )}
 
         {/* Slide 8: A Jornada - A Luta */}
-        <Slide key={8} slideIndex={8}>
+        {currentSlide === 7 && (
+        <Slide key="slide-7" slideIndex={7}>
           <div className="slide-content">
-            <h2 className="slide-title">A Luta pela Excelência</h2>
+            <motion.h2 
+              className="slide-title story-title"
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              A Luta pela Excelência
+            </motion.h2>
+            
             <div className="story-section">
+              {/* Ícone ilustrativo */}
+              <motion.div
+                className="story-icon-container"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              >
+                <div className="story-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                  </svg>
+                </div>
+              </motion.div>
+              
+              {/* Primeiro parágrafo */}
               <motion.div
                 className="story-paragraph"
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 1 }}
+                transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
               >
                 <p>
-                  Nós nos tornamos os <span className="keyword-zoom">arquitetos</span> deste sonho. A cada regulamentação analisada, 
-                  a cada documento corrigido, cada <span className="keyword-zoom">"sim"</span> conquistado... era uma batalha vencida. 
+                  Nós nos tornamos os <span className="highlight-word">arquitetos</span> deste sonho. A cada regulamentação analisada, 
+                  a cada documento corrigido, cada <span className="highlight-word">"sim"</span> conquistado... era uma batalha vencida. 
                   Onde muitos viam um "protocolo" a ser seguido, nós víamos o mapa para a nossa excelência.
                 </p>
               </motion.div>
               
+              {/* Segundo parágrafo */}
               <motion.div
                 className="story-paragraph"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2, duration: 1 }}
+                transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
               >
                 <p>
-                  Houve <span className="keyword-zoom">noites longas</span>. Momentos de incerteza. Aquele suspiro de frustração 
-                  com um prazo que parecia impossível de cumprir. Foi a nossa equipe <span className="keyword-zoom">Jurídica</span>, 
+                  Houve <span className="highlight-word">noites longas</span>. Momentos de incerteza. Aquele suspiro de frustração 
+                  com um prazo que parecia impossível de cumprir. Foi a nossa equipe <span className="highlight-word">Jurídica</span>, 
                   com sua caneta afiada, traçando caminhos onde não havia.
                 </p>
               </motion.div>
               
+              {/* Terceiro parágrafo */}
               <motion.div
                 className="story-paragraph"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.9, duration: 1 }}
+                transition={{ delay: 1.8, duration: 0.8, ease: "easeOut" }}
               >
                 <p>
-                  Cada pessoa nesta equipe, de forma única, se tornou um <span className="keyword-zoom">herói</span> nessa epopeia. 
+                  Cada pessoa nesta equipe, de forma única, se tornou um <span className="highlight-word">herói</span> nessa epopeia. 
                   E a maior lição que aprendemos é que a nossa força não estava em títulos ou em tabelas. 
-                  Estava na <span className="keyword-zoom">coragem</span> de continuar quando o caminho era escuro.
+                  Estava na <span className="highlight-word">coragem</span> de continuar quando o caminho era escuro.
                 </p>
               </motion.div>
             </div>
           </div>
         </Slide>
+        )}
 
         {/* Slide 9: A Jornada - O Agradecimento */}
-        <Slide key={9} slideIndex={9}>
+        {currentSlide === 8 && (
+        <Slide key="slide-8" slideIndex={8}>
           <div className="slide-content">
-            <h2 className="slide-title">O Agradecimento</h2>
+            <motion.h2 
+              className="slide-title story-title"
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              O Agradecimento
+            </motion.h2>
+            
             <div className="story-section">
+              {/* Ícone ilustrativo */}
               <motion.div
-                className="story-paragraph"
+                className="story-icon-container"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5, duration: 1 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              >
+                <div className="story-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M14 9V5a3 3 0 0 0-6 0v4M7 9h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2z"/>
+                  </svg>
+                </div>
+              </motion.div>
+              
+              {/* Primeiro parágrafo */}
+              <motion.div
+                className="story-paragraph"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
               >
                 <p>
-                  E então... veio o <span className="keyword-zoom">momento</span>. Aquela notificação. Aquela assinatura final. 
-                  O brilho da placa que dizia: <span className="keyword-zoom">"Clínica Aprovada."</span> Não foi apenas a liberação 
+                  E então... veio o <span className="highlight-word">momento</span>. Aquela notificação. Aquela assinatura final. 
+                  O brilho da placa que dizia: <span className="highlight-word">"Clínica Aprovada."</span> Não foi apenas a liberação 
                   de um espaço. Foi a prova de que, juntos, somos capazes de transformar um plano em realidade.
                 </p>
               </motion.div>
               
+              {/* Segundo parágrafo */}
               <motion.div
                 className="story-paragraph"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.2, duration: 1 }}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
               >
                 <p>
-                  <span className="keyword-zoom">Obrigado</span>. Obrigado por cada e-mail respondido na madrugada, 
+                  <span className="highlight-word">Obrigado</span>. Obrigado por cada e-mail respondido na madrugada, 
                   por cada planilha preenchida com perfeição, por cada visita fiscalizada que nos deixou mais fortes.
                 </p>
               </motion.div>
               
+              {/* Terceiro parágrafo */}
               <motion.div
                 className="story-paragraph"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.9, duration: 1 }}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.8, duration: 0.8, ease: "easeOut" }}
               >
                 <p>
-                  Vocês não legalizaram clínicas. Vocês ergueram um <span className="keyword-zoom">legado</span>. 
+                  Vocês não legalizaram clínicas. Vocês ergueram um <span className="highlight-word">legado</span>. 
                   Construíram a fundação de um sonho que agora pode ser vivido por milhares. 
                   E por isso, por cada pedaço de orgulho que sinto ao ver nossas portas abertas, 
                   o meu mais profundo e sincero agradecimento a cada um de vocês.
                 </p>
               </motion.div>
               
+              {/* Mensagem final */}
               <motion.div
                 className="final-message"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2.6, duration: 1.5 }}
+                transition={{ delay: 2.4, duration: 1.0, ease: "easeOut" }}
               >
-                <h3>Vocês são a razão do nosso sucesso. A razão da nossa história.</h3>
+                <h3>
+                  Vocês são a razão do nosso sucesso. A razão da nossa história.
+                </h3>
               </motion.div>
             </div>
           </div>
         </Slide>
+        )}
 
         {/* Slide 10: Exportação (ÚLTIMO SLIDE) */}
-        <Slide key={10} slideIndex={10}>
+        {currentSlide === 9 && (
+        <Slide key="slide-9" slideIndex={9}>
           <div className="slide-content">
             <h2 className="slide-title">Exportar Apresentação</h2>
             <div className="export-options">
@@ -1007,6 +1164,7 @@ function App() {
             </div>
           </div>
         </Slide>
+        )}
         </AnimatePresence>
       )}
     </div>

@@ -1120,11 +1120,12 @@ tr:hover td {
   background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
 }
 
-/* Slides de Storytelling - A Jornada */
+/* Slides de Storytelling - A Jornada (Design Minimalista) */
 .story-section {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem 0;
+  position: relative;
 }
 
 .story-paragraph {
@@ -1134,53 +1135,561 @@ tr:hover td {
   color: #ffffff;
   text-align: left;
   position: relative;
+  padding: 0 1rem;
 }
 
 .story-paragraph p {
   margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Título minimalista para slides de história */
+.story-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Palavras-chave com zoom */
+.story-title::after {
+  content: '';
+  position: absolute;
+  bottom: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+}
+
+/* Container do ícone ilustrativo */
+.story-icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.story-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.story-icon:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
+
+.story-icon svg {
+  width: 40px;
+  height: 40px;
+  color: #ffffff;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+/* Palavras destacadas com estilo minimalista */
+.highlight-word {
+  display: inline-block;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.highlight-word::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.highlight-word:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.highlight-word:hover::before {
+  left: 100%;
+}
+
+/* Estilo de título estilo HQ */
+.comic-style-title {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6),
+    0 0 30px rgba(255, 255, 255, 0.4);
+  border: 4px solid #ffffff;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  position: relative;
+  overflow: hidden;
+}
+
+.comic-style-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: titleShine 3s infinite;
+}
+
+@keyframes titleShine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.comic-style-title.battle {
+  border-color: #ff6b6b;
+  text-shadow: 
+    0 0 10px rgba(255, 107, 107, 0.8),
+    0 0 20px rgba(255, 107, 107, 0.6),
+    0 0 30px rgba(255, 107, 107, 0.4);
+}
+
+.comic-style-title.victory {
+  border-color: #ffd93d;
+  text-shadow: 
+    0 0 10px rgba(255, 217, 61, 0.8),
+    0 0 20px rgba(255, 217, 61, 0.6),
+    0 0 30px rgba(255, 217, 61, 0.4);
+}
+
+/* Balões de fala estilo HQ */
+.comic-bubble {
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid #000000;
+  border-radius: 25px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.comic-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 30px;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid #000000;
+}
+
+.comic-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 32px;
+  width: 0;
+  height: 0;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-top: 13px solid rgba(255, 255, 255, 0.95);
+}
+
+.comic-bubble-content {
+  color: #000000;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.comic-bubble.energy {
+  background: linear-gradient(135deg, rgba(100, 200, 255, 0.95), rgba(50, 150, 255, 0.95));
+  border-color: #0066cc;
+}
+
+.comic-bubble.battle-bubble {
+  background: linear-gradient(135deg, rgba(255, 100, 100, 0.95), rgba(200, 50, 50, 0.95));
+  border-color: #cc0000;
+}
+
+.comic-bubble.determination {
+  background: linear-gradient(135deg, rgba(255, 150, 100, 0.95), rgba(255, 100, 50, 0.95));
+  border-color: #cc6600;
+}
+
+.comic-bubble.hero {
+  background: linear-gradient(135deg, rgba(150, 255, 100, 0.95), rgba(100, 200, 50, 0.95));
+  border-color: #66cc00;
+}
+
+.comic-bubble.victory-bubble {
+  background: linear-gradient(135deg, rgba(255, 255, 100, 0.95), rgba(255, 200, 50, 0.95));
+  border-color: #cccc00;
+}
+
+.comic-bubble.gratitude {
+  background: linear-gradient(135deg, rgba(255, 100, 255, 0.95), rgba(200, 50, 200, 0.95));
+  border-color: #cc00cc;
+}
+
+.comic-bubble.legacy {
+  background: linear-gradient(135deg, rgba(100, 255, 255, 0.95), rgba(50, 200, 200, 0.95));
+  border-color: #00cccc;
+}
+
+/* Palavras-chave com efeitos dramáticos */
 .keyword-zoom {
   display: inline-block;
-  color: #3b82f6;
-  font-weight: 700;
-  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
 }
 
-.keyword-zoom:hover {
-  transform: scale(1.1);
-  color: #60a5fa;
-  text-shadow: 0 0 20px rgba(96, 165, 250, 0.8);
+.keyword-zoom.electric {
+  color: #00ffff;
+  text-shadow: 
+    0 0 10px rgba(0, 255, 255, 0.8),
+    0 0 20px rgba(0, 255, 255, 0.6),
+    0 0 30px rgba(0, 255, 255, 0.4);
+  background: rgba(0, 255, 255, 0.1);
+  border: 2px solid #00ffff;
 }
 
-.keyword-zoom::after {
+.keyword-zoom.golden {
+  color: #ffd700;
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.6),
+    0 0 30px rgba(255, 215, 0, 0.4);
+  background: rgba(255, 215, 0, 0.1);
+  border: 2px solid #ffd700;
+}
+
+.keyword-zoom.power {
+  color: #ff4500;
+  text-shadow: 
+    0 0 10px rgba(255, 69, 0, 0.8),
+    0 0 20px rgba(255, 69, 0, 0.6),
+    0 0 30px rgba(255, 69, 0, 0.4);
+  background: rgba(255, 69, 0, 0.1);
+  border: 2px solid #ff4500;
+}
+
+.keyword-zoom.epic {
+  color: #8a2be2;
+  text-shadow: 
+    0 0 10px rgba(138, 43, 226, 0.8),
+    0 0 20px rgba(138, 43, 226, 0.6),
+    0 0 30px rgba(138, 43, 226, 0.4);
+  background: rgba(138, 43, 226, 0.1);
+  border: 2px solid #8a2be2;
+}
+
+.keyword-zoom.destiny {
+  color: #00ff7f;
+  text-shadow: 
+    0 0 10px rgba(0, 255, 127, 0.8),
+    0 0 20px rgba(0, 255, 127, 0.6),
+    0 0 30px rgba(0, 255, 127, 0.4);
+  background: rgba(0, 255, 127, 0.1);
+  border: 2px solid #00ff7f;
+}
+
+.keyword-zoom.justice {
+  color: #4169e1;
+  text-shadow: 
+    0 0 10px rgba(65, 105, 225, 0.8),
+    0 0 20px rgba(65, 105, 225, 0.6),
+    0 0 30px rgba(65, 105, 225, 0.4);
+  background: rgba(65, 105, 225, 0.1);
+  border: 2px solid #4169e1;
+}
+
+.keyword-zoom.warrior {
+  color: #dc143c;
+  text-shadow: 
+    0 0 10px rgba(220, 20, 60, 0.8),
+    0 0 20px rgba(220, 20, 60, 0.6),
+    0 0 30px rgba(220, 20, 60, 0.4);
+  background: rgba(220, 20, 60, 0.1);
+  border: 2px solid #dc143c;
+}
+
+.keyword-zoom.victory {
+  color: #32cd32;
+  text-shadow: 
+    0 0 10px rgba(50, 205, 50, 0.8),
+    0 0 20px rgba(50, 205, 50, 0.6),
+    0 0 30px rgba(50, 205, 50, 0.4);
+  background: rgba(50, 205, 50, 0.1);
+  border: 2px solid #32cd32;
+}
+
+.keyword-zoom.night {
+  color: #4b0082;
+  text-shadow: 
+    0 0 10px rgba(75, 0, 130, 0.8),
+    0 0 20px rgba(75, 0, 130, 0.6),
+    0 0 30px rgba(75, 0, 130, 0.4);
+  background: rgba(75, 0, 130, 0.1);
+  border: 2px solid #4b0082;
+}
+
+.keyword-zoom.legal {
+  color: #ff8c00;
+  text-shadow: 
+    0 0 10px rgba(255, 140, 0, 0.8),
+    0 0 20px rgba(255, 140, 0, 0.6),
+    0 0 30px rgba(255, 140, 0, 0.4);
+  background: rgba(255, 140, 0, 0.1);
+  border: 2px solid #ff8c00;
+}
+
+.keyword-zoom.hero-glow {
+  color: #ff1493;
+  text-shadow: 
+    0 0 10px rgba(255, 20, 147, 0.8),
+    0 0 20px rgba(255, 20, 147, 0.6),
+    0 0 30px rgba(255, 20, 147, 0.4);
+  background: rgba(255, 20, 147, 0.1);
+  border: 2px solid #ff1493;
+}
+
+.keyword-zoom.courage {
+  color: #ff6347;
+  text-shadow: 
+    0 0 10px rgba(255, 99, 71, 0.8),
+    0 0 20px rgba(255, 99, 71, 0.6),
+    0 0 30px rgba(255, 99, 71, 0.4);
+  background: rgba(255, 99, 71, 0.1);
+  border: 2px solid #ff6347;
+}
+
+.keyword-zoom.moment {
+  color: #00ced1;
+  text-shadow: 
+    0 0 10px rgba(0, 206, 209, 0.8),
+    0 0 20px rgba(0, 206, 209, 0.6),
+    0 0 30px rgba(0, 206, 209, 0.4);
+  background: rgba(0, 206, 209, 0.1);
+  border: 2px solid #00ced1;
+}
+
+.keyword-zoom.approved {
+  color: #7cfc00;
+  text-shadow: 
+    0 0 10px rgba(124, 252, 0, 0.8),
+    0 0 20px rgba(124, 252, 0, 0.6),
+    0 0 30px rgba(124, 252, 0, 0.4);
+  background: rgba(124, 252, 0, 0.1);
+  border: 2px solid #7cfc00;
+}
+
+.keyword-zoom.thanks {
+  color: #ff69b4;
+  text-shadow: 
+    0 0 10px rgba(255, 105, 180, 0.8),
+    0 0 20px rgba(255, 105, 180, 0.6),
+    0 0 30px rgba(255, 105, 180, 0.4);
+  background: rgba(255, 105, 180, 0.1);
+  border: 2px solid #ff69b4;
+}
+
+.keyword-zoom.legacy-glow {
+  color: #daa520;
+  text-shadow: 
+    0 0 10px rgba(218, 165, 32, 0.8),
+    0 0 20px rgba(218, 165, 32, 0.6),
+    0 0 30px rgba(218, 165, 32, 0.4);
+  background: rgba(218, 165, 32, 0.1);
+  border: 2px solid #daa520;
+}
+
+/* Efeitos de partículas */
+.energy-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.energy-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #00ffff, #0080ff);
+  border-radius: 50%;
+  box-shadow: 0 0 20px #00ffff;
+}
+
+.battle-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.battle-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #ff6b6b, #ff0000);
+  border-radius: 50%;
+  box-shadow: 0 0 15px #ff6b6b;
+}
+
+.victory-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.victory-star {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #ffd700, #ffa500);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  box-shadow: 0 0 25px #ffd700;
+}
+
+/* Mensagem final épica */
+.epic-message {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+  border: 3px solid #ffd700;
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+.epic-message::before {
   content: '';
   position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #3b82f6, #60a5fa);
-  transition: width 0.3s ease;
-}
-
-.keyword-zoom:hover::after {
+  top: 0;
+  left: -100%;
   width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+  animation: epicShine 4s infinite;
 }
 
-/* Mensagem final especial */
+@keyframes epicShine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Confete dourado */
+.golden-confetti {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, #ffd700, #ffa500);
+  border-radius: 2px;
+  box-shadow: 0 0 10px #ffd700;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+  .comic-style-title {
+    font-size: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    letter-spacing: 1px;
+  }
+  
+  .comic-bubble {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .comic-bubble-content {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .keyword-zoom {
+    padding: 0.1rem 0.3rem;
+    font-size: 0.8rem;
+  }
+  
+  .energy-particle,
+  .battle-particle {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .victory-star {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .confetti-piece {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+/* Mensagem final elegante */
 .final-message {
-  text-align: center;
-  margin-top: 3rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
   padding: 2rem;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-  border-radius: 20px;
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  margin-top: 2rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
 }
@@ -1192,23 +1701,22 @@ tr:hover td {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-  animation: shimmer 3s infinite;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: subtleShine 6s infinite;
 }
 
-@keyframes shimmer {
+@keyframes subtleShine {
   0% { left: -100%; }
+  50% { left: 100%; }
   100% { left: 100%; }
 }
 
 .final-message h3 {
-  font-size: 1.4rem;
+  margin: 0;
+  font-size: 1.3rem;
   font-weight: 600;
   color: #ffffff;
-  margin: 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  position: relative;
-  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Animações específicas para cada slide */
@@ -1304,16 +1812,16 @@ tr:hover td {
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 2rem;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
   }
   
   .final-message {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding: 1.5rem;
   }
   
   .final-message h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   
   .keyword-zoom:hover {
